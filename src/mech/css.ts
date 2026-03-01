@@ -18,13 +18,31 @@ type Until<T extends string, Delims extends string> = T extends `${infer Before}
 
 type ExtractFromSelectors<T extends string> = T extends `${string}.${infer Rest}` ? Until<
 		Rest,
-		" " | "\n" | "\t" | "\r" | "{" | ":" | "," | ">" | "+" | "~" | "[" | "." | "#" | ";" | "}" | "/" | "*"
+		| " "
+		| "\n"
+		| "\t"
+		| "\r"
+		| "{"
+		| ":"
+		| ","
+		| ">"
+		| "+"
+		| "~"
+		| "["
+		| "."
+		| "#"
+		| ";"
+		| "}"
+		| "/"
+		| "*"
 	> extends infer Name extends string ? Name extends "" ? never
 		: Name | ExtractFromSelectors<Rest>
 	: never
 	: never;
 
-type ExtractFlatClassKeys<T extends string> = ExtractFromSelectors<Until<T, "{">>;
+type ExtractFlatClassKeys<T extends string> = ExtractFromSelectors<
+	Until<T, "{">
+>;
 
 type ScopedStyles<T extends string> =
 	& {
@@ -93,7 +111,10 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 
 export function cssMiddleware(): Middleware {
 	return (ctx: Context, next: () => Promise<Response>) => {
-		if (!ctx.url.pathname.startsWith("/css/") || !ctx.url.pathname.endsWith(".css")) {
+		if (
+			!ctx.url.pathname.startsWith("/css/") ||
+			!ctx.url.pathname.endsWith(".css")
+		) {
 			return next();
 		}
 

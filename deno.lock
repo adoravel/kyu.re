@@ -2,6 +2,7 @@
   "version": "5",
   "specifiers": {
     "jsr:@july/snarl@~0.3.2": "0.3.2",
+    "jsr:@minify-html/deno@~0.18.1": "0.18.1",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/path@^1.1.4": "1.1.4"
@@ -13,6 +14,9 @@
         "jsr:@std/encoding",
         "jsr:@std/path"
       ]
+    },
+    "@minify-html/deno@0.18.1": {
+      "integrity": "1af76557adea9ee1e28759f653ec5a35e9c006e2abe73b65e4944aa821711ed1"
     },
     "@std/encoding@1.0.10": {
       "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
@@ -62,6 +66,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@july/snarl@~0.3.2",
+      "jsr:@minify-html/deno@~0.18.1",
       "jsr:@std/encoding@^1.0.10",
       "jsr:@std/path@^1.1.4"
     ]

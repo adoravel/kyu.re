@@ -6,9 +6,10 @@
 import { createRouter } from "@july/snarl";
 import { cssMiddleware as scopedStyles } from "~/mech/css.ts";
 import { scanRoutes as scan } from "./mech/routing.ts";
+import minify from "./mech/mini.ts";
 
 const router = createRouter();
-router.use(scopedStyles());
+router.use(minify(), scopedStyles());
 
 scan(router);
 
