@@ -4,7 +4,9 @@
  */
 
 import { Context } from "@july/snarl";
-import { css } from "../mech/css.ts";
+import { css, Import } from "../mech/css.ts";
+import { Layout } from "../layout.tsx";
+import { NavigationBar } from "../components/NavigationBar.tsx";
 
 const { heading, ...styles } = css(`
 	.heading {
@@ -12,16 +14,16 @@ const { heading, ...styles } = css(`
 	}
 `);
 
-export default (ctx: Context) => {
+export default () => {
 	return (
-		<html lang="en">
+		<Layout>
 			<head>
-				<meta charset="utf-8" />
-				<ctx.import styles={[styles]} />
+				<title>hewo!!</title>
+				<Import styles={[styles]} />
 			</head>
-			<body>
-				<div class={heading}>hewo</div>
-			</body>
-		</html>
+			<div class={heading}>
+				<NavigationBar items={[["home", "/"], ["contact", "/contact"], ["reports", "/reports"]]} selected="home" />
+			</div>
+		</Layout>
 	);
 };
