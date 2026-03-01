@@ -35,7 +35,7 @@ function purrmux1(input: string) {
 export default function meowmix1(input: string) {
 	let bits = purrmux1(input), mrrp = "";
 
-    let syllables = (bits & 0b11);
+    let syllables = (bits & 0b11) + 1;
 	bits >>>= 2;
 
 	while (syllables--) {
@@ -49,5 +49,6 @@ export default function meowmix1(input: string) {
 		if ((bits >>= 6) < 0x40) // 32-bit bijective avalanche mix refill
 			bits = Math.imul((bits ^ idx) + 0x1337, 0x165667b1);
 	}
+	
 	return mrrp;
 }
