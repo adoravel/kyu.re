@@ -13,45 +13,22 @@ const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
 const styleRegistry = new Map<string, string>();
 
 const contextualisedStyles = new WeakMap<Context<any>, Set<string>>();
-
 type Until<T extends string, Delims extends string> = T extends `${infer Before}${Delims}${string}` ? Before
 	: T;
 
-type ExtractFromSelectors<T extends string> = T extends `${string}.${infer Rest}` ? Until<
-		Rest,
-		| " "
-		| "\n"
-		| "\t"
-		| "\r"
-		| "{"
-		| ":"
-		| ","
-		| ">"
-		| "+"
-		| "~"
-		| "["
-		| "."
-		| "#"
-		| ";"
-		| "}"
-		| "/"
-		| "*"
-	> extends infer Name extends string ? Name extends "" ? never
-		: Name | ExtractFromSelectors<Rest>
+type ExtractFlatClassKeys<T extends string> = T extends `${infer _}.${infer Rest}`
+	? Rest extends `${infer Name}${" " | "{" | ":" | "\n" | "\t" | "," | ">" | "+" | "~" | "[" | "." | "#"}${infer Tail}`
+		? Name | ExtractFlatClassKeys<Tail>
+	: Rest extends `${infer Name}` ? Name
 	: never
 	: never;
-
-type ExtractFlatClassKeys<T extends string> = ExtractFromSelectors<
-	Until<T, "{">
->;
 
 export type ScopedStyles<T extends string> =
 	& {
 		[K in ExtractFlatClassKeys<T>]: string;
 	}
 	& {
-		readonly __hash: string;
-		readonly __css: string;
+		readonly scope: string;
 		href: string;
 
 		/** mark this stylesheet as used for the current request (for contextual injection) */
@@ -71,7 +48,7 @@ function extractClassKeys(input: string): Set<string> {
 }
 
 function generateScopedStyle(content: string, scopeId: string): string {
-	return content.replace(CLASS_RE, (_, name) => `.${scopeId}_${name}`);
+	return `@scope(.${scopeId}){${content}}`;
 }
 
 export function css<const S extends string>(src: S): ScopedStyles<S> {
@@ -87,7 +64,7 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 	styleRegistry.set(hash, style);
 
 	const result: any = {
-		__hash: hash,
+		scope: hash,
 		__css: style,
 		href: `/css/${hash}.css`,
 		use(ctx: Context<any>) {
@@ -101,7 +78,7 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 
 	const keys = extractClassKeys(src);
 	for (const key of keys) {
-		result[key] = `${hash}_${key}`;
+		result[key] = key;
 	}
 	return result as ScopedStyles<S>;
 }
@@ -145,7 +122,7 @@ Context.prototype.useStyles = function (...styles: ScopedStyles<string>[]) {
 		contextualisedStyles.set(this, mem = new Set());
 	}
 	for (const s of styles) {
-		mem.add(s.__hash);
+		mem.add(s.scope);
 	}
 };
 
@@ -169,6 +146,7 @@ Object.defineProperty(Context.prototype, "styles", {
 				);
 			}
 
+			mem.clear();
 			return jsx(Fragment, { children: nodes });
 		};
 	},

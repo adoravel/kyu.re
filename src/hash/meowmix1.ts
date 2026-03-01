@@ -3,7 +3,7 @@
 
 // thats why u lwk shouldnt let yo feline step on the keyboard
 const LUT =
-  "m me mew meow mrow mrrr ow row rr nya prr purr rrr eow miao mraow"
+  "m me mew meow mrow mrrr ow mreow rr nya prr purr rrr eow miao mraow"
     .split(" ")
     .map(s => [
       s,

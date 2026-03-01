@@ -8,16 +8,16 @@ import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
 import { css } from "./mech/css.ts";
 import meowmix1 from "./hash/meowmix1.ts";
 
-const styles = css(`
+const styles = `
 	:root {
-		--theme-background: #181825;
+		--theme-background: #0e0811;
 		--theme-background-alt: #11111b;
-		--theme-surface: #1e1e2e;
-		--theme-surface-border: #313244;
-		--theme-foreground: #cdd6f4;
-		--theme-primary: #f5e0dc;
-		--theme-foreground-alt: #a6adc8;
-		--theme-foreground-bruh: #7f849c;
+		--theme-surface: #18111a;
+		--theme-surface-border: #2a242d;
+		--theme-foreground: #f4e2f2;
+		--theme-primary: #eec0f4;
+		--theme-foreground-alt: #b9a6c8;
+		--theme-foreground-bruh: #987f9c;
 		--theme-separator: #313244;
 
 		--space-0: 0.16rem;
@@ -94,6 +94,7 @@ const styles = css(`
 	button {
 		font-family:
 			"Iosevka Custom Web", "Iosevka Custom", Iosevka, monospace, sans-serif;
+		font-size: var(--font-size-base);
 		text-rendering: optimizeLegibility;
 		line-height: 1.75rem;
 	}
@@ -103,6 +104,12 @@ const styles = css(`
 	    text-decoration: none;
 	}
 
+	section p {
+		margin-bottom: var(--spacing-md);
+		font-size: 0.9em;
+		color: var(--theme-foreground-alt);
+	}
+	
 	@view-transition {
 		navigation: auto;
 	}
@@ -110,10 +117,11 @@ const styles = css(`
 	#content {
 		view-transition-name: content;
 	}
-`);
+`;
 
 export interface LayoutProps {
 	children?: JsxElement | JsxElement[];
+	class?: string;
 }
 
 interface CollectResult {
@@ -156,7 +164,7 @@ function collect(node: JsxNode, result: CollectResult): void {
 	result.body.push(jsx(tag, { ...props, children: child.body as any }));
 }
 
-export function Layout({ children }: LayoutProps = {}) {
+export function Layout({ children, class: className }: LayoutProps = {}) {
 	const result: CollectResult = { head: [], body: [] };
 	collect(children, result);
 
@@ -165,10 +173,11 @@ export function Layout({ children }: LayoutProps = {}) {
 			<head>
 				<meta charset="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="stylesheet" href={styles.href} />
+				<style type="text/css">{styles}</style>
+				<link rel="stylesheet" href="/fonts/iosevka-custom/import.css" />
 				{result.head}
 			</head>
-			<body>
+			<body class={className}>
 				{result.body}
 			</body>
 		</html>

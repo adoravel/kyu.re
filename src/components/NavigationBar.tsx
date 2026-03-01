@@ -6,8 +6,8 @@
 import { retrieveContext } from "../global.ts";
 import { css, Import } from "../mech/css.ts";
 
-const { root, itemList, item, selected: selectedItem, ...styles } = css(`
-	.root {
+const style = css(`
+	:scope {
 	  display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -42,7 +42,7 @@ const { root, itemList, item, selected: selectedItem, ...styles } = css(`
 		line-height: 1rem;
 		display: block;
 	}
-`) as any;
+`);
 
 interface Props<T extends readonly [string, string][]> {
 	items: T;
@@ -52,14 +52,14 @@ interface Props<T extends readonly [string, string][]> {
 export function NavigationBar<P extends readonly [string, string][]>({ items, selected }: Props<P>) {
 	return (
 		<>
-			<Import styles={[styles]} />
-			<nav class={root}>
-				<ul class={itemList}>
+			<Import styles={[style]} />
+			<nav class={style.scope}>
+				<ul class="itemList">
 					{items.map(([name, href]) => (
-						<li class={name === selected ? selectedItem : undefined}>
+						<li class={name === selected ? "selected" : undefined}>
 							{name === selected
-								? <a href={href} class={`${item}`} data-current="true" aria-current="page">{name}</a>
-								: <a href={href} class={item}>{name}</a>}
+								? <a href={href} class="item" data-current="true" aria-current="page">{name}</a>
+								: <a href={href} class="item">{name}</a>}
 						</li>
 					))}
 				</ul>
