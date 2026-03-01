@@ -5,7 +5,8 @@
 
 import meowmix1 from "~/hash/meowmix1.ts";
 import { Context, Middleware } from "@july/snarl";
-import { Component, jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
+import { Component, Fragment, jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
+import { retrieveContext } from "../global.ts";
 
 const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
 
@@ -44,7 +45,7 @@ type ExtractFlatClassKeys<T extends string> = ExtractFromSelectors<
 	Until<T, "{">
 >;
 
-type ScopedStyles<T extends string> =
+export type ScopedStyles<T extends string> =
 	& {
 		[K in ExtractFlatClassKeys<T>]: string;
 	}
@@ -77,11 +78,6 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 	src = src.trim() as S;
 	if (!src) throw new Error("css: empty stylesheet");
 
-	const keys = extractClassKeys(src);
-	if (!keys.size) {
-		throw new Error("css: no class selectors found");
-	}
-
 	const hash = meowmix1(src);
 	if (styleRegistry.has(hash)) {
 		throw new Error(`css: hash collision ${hash}`);
@@ -103,6 +99,7 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 		},
 	};
 
+	const keys = extractClassKeys(src);
 	for (const key of keys) {
 		result[key] = `${hash}_${key}`;
 	}
@@ -138,8 +135,6 @@ declare module "@july/snarl" {
 	interface Context {
 		useStyles(...styles: ScopedStyles<string>[]): void;
 
-		get import(): Component<{ styles: ScopedStyles<string>[] }>;
-
 		get styles(): Component;
 	}
 }
@@ -159,11 +154,11 @@ Object.defineProperty(Context.prototype, "styles", {
 		// deno-lint-ignore no-this-alias
 		const ctx = this;
 
-		return (_props?: JsxElement["props"]) => {
+		return (_props: any = {}) => {
 			const mem = contextualisedStyles.get(ctx);
 			if (!mem || mem.size === 0) return null;
 
-			const nodes: JsxNode[] = [];
+			const nodes: JsxElement[] = [];
 
 			for (const hash of mem) {
 				nodes.push(
@@ -174,19 +169,15 @@ Object.defineProperty(Context.prototype, "styles", {
 				);
 			}
 
-			return nodes.length === 1 ? nodes[0] : nodes;
+			return jsx(Fragment, { children: nodes });
 		};
 	},
 });
 
-Object.defineProperty(Context.prototype, "import", {
-	get(this: Context): Component {
-		// deno-lint-ignore no-this-alias
-		const ctx = this;
-
-		return function ({ styles }: Parameters<Context["import"]>[0]) {
-			ctx.useStyles(...styles);
-			return ctx.styles({});
-		} as any;
-	},
-});
+export function Import({ styles = [] }: { styles: ScopedStyles<string>[] }) {
+	const ctx = retrieveContext()!;
+	if (styles.length) {
+		ctx.useStyles(...styles);
+	}
+	return jsx("head", { children: ctx.styles({}) as JsxElement[] });
+}
