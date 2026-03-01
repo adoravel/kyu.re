@@ -24,7 +24,7 @@
 		]
 	},
 	"compilerOptions": {
-		"jsx": "precompile",
+		"jsx": "react-jsx",
 		"jsxImportSource": "@july/snarl",
 		"lib": ["deno.ns", "dom", "dom.iterable"]
 	},
