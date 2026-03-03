@@ -14,7 +14,7 @@ export default () => {
 	return (
 		<Layout class={reports.scope}>
 			<Import styles={[reports]} />
-			wip, sorry
+			<span>wip, sorry</span>
 		</Layout>
 	);
 };

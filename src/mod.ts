@@ -12,7 +12,9 @@ import { staticFiles } from "@july/snarl";
 
 const router = createRouter();
 router.use(minify(), styleInjectionMiddleware(), contextMiddleware(), scopedStyles());
-router.use(staticFiles("./static"));
+router.use(staticFiles("./static", {
+	maxAge: 259200,
+}));
 
 scan(router);
 

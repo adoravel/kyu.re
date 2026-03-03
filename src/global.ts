@@ -6,7 +6,6 @@
 import { Middleware } from "@july/snarl";
 import { Context } from "@july/snarl";
 import { AsyncLocalStorage } from "node:async_hooks";
-import { ScopedStyles } from "./mech/css.ts";
 
 const contextStorage = new AsyncLocalStorage<Context>();
 

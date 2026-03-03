@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Context } from "@july/snarl";
 import { css, Import } from "~/mech/css.ts";
 import { Layout } from "~/layout.tsx";
 import { NavigationBar } from "~/components/NavigationBar.tsx";
@@ -12,13 +11,8 @@ import SectionTitle from "~/components/SectionTitle.tsx";
 import Projects, { ProjectLanguage } from "~/components/Projects.tsx";
 import { MediaItem } from "~/components/MediaItem.tsx";
 import { Fm } from "~/components/Fm.tsx";
-import { Bluesky, Fluxer, GitHub, Mail, Tangled } from "~/components/Icon.tsx";
 import KVTable from "~/components/KVTable.tsx";
 import { Footer } from "../components/Footer.tsx";
-
-const age = new Date(new Date().getFullYear(), 8, 1) >= new Date()
-	? new Date().getFullYear() - 2007 - 1
-	: new Date().getFullYear() - 2007;
 
 const home = css(`
 	.heading {
@@ -199,9 +193,7 @@ export default () => {
 						linguistics, functional programming, the C programming language, and unconventional TypeScript.
 					</p>
 					<input type="checkbox" id="intro-toggle" class="read-more-checkbox" autocomplete="off" />
-					{/* @ts-expect-error */}
 					<label for="intro-toggle" class="read-more-btn link read-more-label-expand">Read more</label>
-					{/* @ts-expect-error */}
 					<label for="intro-toggle" class="read-more-btn link read-more-label-collapse">Show less</label>
 					<div class="read-more-content">
 						<div class="break" />

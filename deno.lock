@@ -1,7 +1,7 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@july/snarl@~0.3.3": "0.3.3",
+    "jsr:@july/snarl@~0.3.4": "0.3.4",
     "jsr:@minify-html/deno@~0.18.1": "0.18.1",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.12": "1.0.12",
@@ -9,8 +9,8 @@
     "npm:@musicorum/lastfm@0.4": "0.4.0"
   },
   "jsr": {
-    "@july/snarl@0.3.3": {
-      "integrity": "b07ee48f7514e06dab971c23a96833cd2be9320093f2ae784726de4571e67a8d",
+    "@july/snarl@0.3.4": {
+      "integrity": "693788d89ba34a473e320af8f28f65df0d016741d9e9b32165ecf402bf129261",
       "dependencies": [
         "jsr:@std/encoding",
         "jsr:@std/path"
@@ -71,7 +71,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@july/snarl@~0.3.3",
+      "jsr:@july/snarl@~0.3.4",
       "jsr:@minify-html/deno@~0.18.1",
       "jsr:@std/encoding@^1.0.10",
       "jsr:@std/path@^1.1.4",

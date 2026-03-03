@@ -145,13 +145,12 @@ export default function Projects(props: ProjectsProps) {
 			<Import styles={[projects]} />
 			{props.projects.map((project) => (
 				<li>
-					{/* @ts-expect-error */}
 					<a class="project-card" href={project.url} target="_blank" rel="noopener noreferrer">
 						<span class="external-icon" aria-label="Open externally">
 							<svg
-								xmlns={/* @ts-expect-error */ "http://www.w3.org/2000/svg"}
-								width={/* @ts-expect-error */ "18"}
-								height={/* @ts-expect-error */ "18"}
+								xmlns="http://www.w3.org/2000/svg"
+								width="18"
+								height="18"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -160,13 +159,9 @@ export default function Projects(props: ProjectsProps) {
 								stroke-linejoin="round"
 							>
 								<title>Open Externally</title>
-								{/* @ts-expect-error */}
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								{/* @ts-expect-error */}
 								<path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
-								{/* @ts-expect-error */}
 								<path d="M11 13l9 -9"></path>
-								{/* @ts-expect-error */}
 								<path d="M15 4h5v5"></path>
 							</svg>
 						</span>
@@ -183,9 +178,9 @@ export default function Projects(props: ProjectsProps) {
 								: "Unknown"}
 							<div class="license" aria-label="License">
 								<svg
-									xmlns={/* @ts-expect-error */ "http://www.w3.org/2000/svg"}
-									width={/* @ts-expect-error */ "12"}
-									height={/* @ts-expect-error */ "12"}
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -194,15 +189,10 @@ export default function Projects(props: ProjectsProps) {
 									stroke-linejoin="round"
 								>
 									<title>License</title>
-									{/* @ts-expect-error */}
 									<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
-									{/* @ts-expect-error */}
 									<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
-									{/* @ts-expect-error */}
 									<path d="M7 21h10"></path>
-									{/* @ts-expect-error */}
 									<path d="M12 3v18"></path>
-									{/* @ts-expect-error */}
 									<path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
 								</svg>
 								<span>BSD-3-Clause</span>

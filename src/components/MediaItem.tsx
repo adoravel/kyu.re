@@ -148,7 +148,6 @@ const ART_PATTERN = [
 function Art({ url }: { url: string | undefined }) {
 	return (
 		<div class="art">
-			{/* @ts-expect-error */}
 			<img class="art-cover" alt="" src={url} onload="this.parentNode.dataset.loaded=''" onerror="this.remove()" />
 			<div class="default-pattern">
 				{ART_PATTERN.flat().map((n) => <span class={`art-px art-px-${n}`} />)}
@@ -174,12 +173,10 @@ export function MediaItem({
 					<div class="live">
 						{platform}
 					</div>
-					{/* @ts-expect-error */}
 					<a class="link" href={url} target="_blank" rel="noopener noreferrer">
 						{action}
 					</a>
 				</div>
-				{/* @ts-expect-error */}
 				<a class="body" href={url} target="_blank" rel="noopener noreferrer">
 					<Art url={coverUrl} />
 					<div class="info">

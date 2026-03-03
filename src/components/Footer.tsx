@@ -79,14 +79,12 @@ export function Footer() {
 					</a>
 				</li>
 				<li>
-					{/* @ts-expect-error */}
 					<button onclick="let t=this.lastChild,n=t.nodeValue;navigator.clipboard.writeText(n.trim());if(!this.dataset.t){this.dataset.t=n;t.nodeValue=' copied to clipboard';setTimeout(()=>{t.nodeValue=this.dataset.t;delete this.dataset.t},3000)}">
 						<Fluxer />
 						queen#0001
 					</button>
 				</li>
 				<li>
-					{/* @ts-expect-error */}
 					<button onclick="window.open(atob(this.textContent.trim()),'_blank','noopener')">
 						<Mail />
 						bWFpbG1lOmtAa3l1LnJlCg==

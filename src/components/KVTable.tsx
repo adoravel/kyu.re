@@ -48,7 +48,6 @@ export default function KVTable({ data }: KVTableProps) {
 			{Object.entries(data).map(([key, [name, url]]) => (
 				<div key={key} class="kv-row">
 					<span class="kv-key">{key}</span>
-					{/* @ts-expect-error */}
 					<a class="kv-val link" href={url} target="_blank" rel="noopener noreferrer">{name}</a>
 				</div>
 			))}

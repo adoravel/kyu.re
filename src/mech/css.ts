@@ -5,7 +5,7 @@
 
 import meowmix1 from "~/hash/meowmix1.ts";
 import { Context, Middleware } from "@july/snarl";
-import { Component, Fragment, jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
+import { Component, Fragment, jsx, JsxElement } from "@july/snarl/jsx-runtime";
 import { retrieveContext } from "../global.ts";
 
 const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
@@ -13,8 +13,6 @@ const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
 const styleRegistry = new Map<string, string>();
 
 const contextualisedStyles = new WeakMap<Context<any>, Set<string>>();
-type Until<T extends string, Delims extends string> = T extends `${infer Before}${Delims}${string}` ? Before
-	: T;
 
 type ExtractFlatClassKeys<T extends string> = T extends `${infer _}.${infer Rest}`
 	? Rest extends `${infer Name}${" " | "{" | ":" | "\n" | "\t" | "," | ">" | "+" | "~" | "[" | "." | "#"}${infer Tail}`

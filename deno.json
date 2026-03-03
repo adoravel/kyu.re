@@ -13,7 +13,7 @@
 		"~/": "./src/",
 		"@minify-html/deno": "jsr:@minify-html/deno@^0.18.1",
 		"@std/path": "jsr:@std/path@^1.1.4",
-		"@july/snarl": "jsr:@july/snarl@^0.3.3",
+		"@july/snarl": "jsr:@july/snarl@^0.3.4",
 		"@std/encoding": "jsr:@std/encoding@^1.0.10"
 	},
 	"fmt": {
@@ -21,7 +21,8 @@
 		"semiColons": true,
 		"lineWidth": 120,
 		"exclude": [
-			"./src/hash/meowmix1.ts"
+			"./src/hash/meowmix1.ts",
+			"./static"
 		]
 	},
 	"compilerOptions": {
@@ -32,7 +33,7 @@
 	"lint": {
 		"rules": {
 			"tags": ["recommended"],
-			"exclude": ["no-explicit-any"]
+			"exclude": ["no-explicit-any", "jsx-key", "jsx-curly-braces", "jsx-button-has-type"]
 		}
 	}
 }

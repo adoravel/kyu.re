@@ -3,10 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Context } from "@july/snarl";
 import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
 import { css } from "./mech/css.ts";
-import meowmix1 from "./hash/meowmix1.ts";
 
 const styles = css(`
 	:scope {
@@ -194,15 +192,10 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<style type="text/css"></style>
 				<link rel="icon" type="image/png" href="/favicon.png" />
-				{/* @ts-expect-error */}
 				<meta property="og:site_name" content="kyu.re" />
-				{/* @ts-expect-error */}
 				<meta property="og:type" content="profile" />
-				{/* @ts-expect-error */}
 				<meta property="og:description" content="one of the girls of all time" />
-				{/* @ts-expect-error */}
 				<meta property="og:image" content="/bnuy.webp" />
-				{/* @ts-expect-error */}
 				<meta property="og:title" content="random corner" />
 				<meta name="theme-color" content="#151217" />
 				<link rel="stylesheet" href={`/css/${styles.scope}.css`} />
