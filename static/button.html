@@ -8,13 +8,11 @@
 				padding: 0;
 			}
 			html, body {
-				width: 88px;
-				height: 31px;
 				overflow: hidden;
-				background: #000;
 			}
 			canvas {
 				display: block;
+				image-rendering: pixelated;
 			}
 		</style>
 	</head>
@@ -72,10 +70,10 @@
 			const charWidths = { k: 4, y: 4, u: 4, ".": 1, r: 4, e: 4 };
 			const labelChars = ["k", "y", "u", ".", "r", "e"];
 
-			const TAG_W = 34, TAG_H = 11;
+			const TAG_W = 30, TAG_H = 11;
 			const TAG_X = BUTTON_W - TAG_W;
 			const TAG_Y = BUTTON_H - TAG_H;
-			const TEXT_X = TAG_X + 4;
+			const TEXT_X = TAG_X + 2;
 			const TEXT_Y = TAG_Y + 2;
 
 			function drawTag() {
