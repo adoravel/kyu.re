@@ -195,7 +195,7 @@ export default function Projects(props: ProjectsProps) {
 									<path d="M12 3v18"></path>
 									<path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
 								</svg>
-								<span>BSD-3-Clause</span>
+								<span>{project.license}</span>
 							</div>
 						</div>
 					</a>

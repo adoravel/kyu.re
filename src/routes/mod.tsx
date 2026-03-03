@@ -15,19 +15,19 @@ import KVTable from "~/components/KVTable.tsx";
 import { Footer } from "../components/Footer.tsx";
 
 const home = css(`
-	.heading {
+	#heading {
 		margin-bottom: var(--spacing-2xl);
 		position: relative;
 	}
 
-	.heading h1 {
+	#heading h1 {
 		font-size: var(--font-size-2xl);
 		line-height: 1.2;
 		margin-bottom: var(--space-1);
 		display: block;
 	}
 
-	.heading h2 {
+	#heading h2 {
 		display: inline-block;
 		font-size: 0.875rem;
 		color: var(--theme-foreground-alt);
@@ -35,11 +35,11 @@ const home = css(`
 		width: fit-content;
 	}
 
-	.intro-text-container > p {
+	#intro-text-container > p {
 		display: inline;
 	}
 	
-	section, .heading {
+	section, #heading {
 		position: relative;
 
 		&::before {
@@ -56,25 +56,39 @@ const home = css(`
 		}
 	}
 	
-	.heading::before {
+	#heading::before {
 		content: ":3";
 		font-size: 7rem !important;
 		top: -0.25em;
 		left: -5.25rem;
 	}
 
-	.intro::before {
+	#intro::before {
 		content: "bio";
 		right: -8rem;
 		top: 2.4rem;
 	}
 
-	.projects::before {
+	#projects::before {
 		content: "↩";
 		transform: rotate(15deg);
 		font-size: calc(var(--font-size-2xl) * 5);
 		right: -16rem;
 		top: 2rem;
+	}
+
+	#donate::before {
+		content: "$";
+		left: -12.5rem;
+		top: 7rem;
+	}
+
+	#friends::before {
+		content: "<3";
+		transform: rotate(15deg);
+		font-size: calc(var(--font-size-2xl) * 5);
+		right: -5rem;
+		top: 3rem;
 	}
 
 	section {
@@ -121,11 +135,11 @@ const home = css(`
 		display: none;
     }
 
-    .read-more-content {
+    #read-more-content {
         display: none !important;
     }
 
-    .read-more-checkbox:checked ~ .read-more-content {
+    .read-more-checkbox:checked ~ #read-more-content {
         display: inline !important;
     }
 
@@ -150,7 +164,7 @@ const home = css(`
         display: inline-block;
     }
 
-	.read-more-content > .break {
+	#read-more-content > .break {
 		height: 1em;
 	}
 
@@ -179,15 +193,15 @@ export default () => {
 				<Import styles={[home]} />
 			</head>
 			<NavigationBar items={[["home", "/"], ["reports", "/reports"]]} selected="home" />
-			<header class="heading">
+			<header id="heading">
 				<h1>
 					<Typecycle />
 				</h1>
 				<h2>she/her ∘ ૮ ˶ᵔ ᵕ ᵔ˶ ა</h2>
 			</header>
-			<section>
+			<section id="intro">
 				<SectionTitle>Introduction</SectionTitle>
-				<div class="intro-text-container">
+				<div id="intro-text-container">
 					<p>
 						I'm an aspiring computer engineer passionate about open access and well-crafted software. I really love
 						linguistics, functional programming, the C programming language, and unconventional TypeScript.
@@ -195,7 +209,7 @@ export default () => {
 					<input type="checkbox" id="intro-toggle" class="read-more-checkbox" autocomplete="off" />
 					<label for="intro-toggle" class="read-more-btn link read-more-label-expand">Read more</label>
 					<label for="intro-toggle" class="read-more-btn link read-more-label-collapse">Show less</label>
-					<div class="read-more-content">
+					<div id="read-more-content">
 						<div class="break" />
 						<p>
 							<i>In a more personal tone~.</i> Haiiii! I'm <span class="dats-me">Júlia Lívia</span>, nice to meet ya!
@@ -219,7 +233,7 @@ export default () => {
 					</div>
 				</div>
 			</section>
-			<section class="song">
+			<section id="song">
 				<SectionTitle>Current favourite songs</SectionTitle>
 				<ul class="media">
 					<li>
@@ -254,7 +268,7 @@ export default () => {
 					</li>
 				</ul>
 			</section>
-			<section class="projects">
+			<section id="projects">
 				<SectionTitle>Projects</SectionTitle>
 				<Projects
 					projects={[
@@ -287,11 +301,11 @@ export default () => {
 					]}
 				/>
 			</section>
-			<section class="fm">
+			<section id="fm">
 				<SectionTitle>Recently listened</SectionTitle>
 				<Fm />
 			</section>
-			<section class="Friends">
+			<section id="friends">
 				<SectionTitle>{"Friends &lt;3"}</SectionTitle>
 				<p>Precious friendships; from the bottom of my heart, I am genuinely grateful for their existence~</p>
 				<div class="buttons">
@@ -299,6 +313,18 @@ export default () => {
 					<a href="https://katelyn.moe/" rel="noopener nofollow">
 						<img src="https://katelyn.moe/8831.png" alt="katelyn" />
 					</a>
+					<iframe
+						width="88"
+						height="31"
+						style="border:none"
+						sandbox="allow-scripts allow-popups"
+						srcdoc="<!doctype html><body onload=&#34;d=d.style,d.position=`absolute`,x=0,y=Math.random()*66|0,u=v=1,c=3;
+setInterval`x+=u${166}y+=v,z=x<=0||x>=20,w=y<=0||y>=67;
+z&&w?c=(c+3)%6-1:0,u^=-z-z,v^=-w-w;
+d.background='hwb('+60*c+' 0 0)';
+d.top=x+'px',d.left=y+'px'`&#34;bgcolor=#000><a href=https://github.com/rniii target=_blank><img id=d src=data:image/gif;base64,R0lGODdhFQALAHcAACH5BAkKAAAALAAAAAAVAAsAgAAAAAAAAAInDI4Xa6m8EkNQPQtivnvuH3mc1pSlU3EUxJrtC8eig851Q2daTjMFADs>"
+					>
+					</iframe>
 					<a href="https://worf.win" rel="noopener nofollow">
 						<img src="https://worf.win/images/worfwin.gif" alt="worf.win" />
 					</a>
@@ -316,7 +342,7 @@ export default () => {
 					</a>
 				</div>
 			</section>
-			<section class="piggy-bank">
+			<section id="donate">
 				<SectionTitle>Piggy bank</SectionTitle>
 				<p>
 					If you enjoy throwing money at people on the internet, please consider me to help keep my projects alive and
