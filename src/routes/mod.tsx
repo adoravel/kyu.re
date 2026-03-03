@@ -299,6 +299,9 @@ export default () => {
 					<a href="https://katelyn.moe/" rel="noopener nofollow">
 						<img src="https://katelyn.moe/8831.png" alt="katelyn" />
 					</a>
+					<a href="https://worf.win" rel="noopener nofollow">
+						<img src="https://worf.win/images/worfwin.gif" alt="worf.win" />
+					</a>
 					<a href="https://urwq.moe" rel="noopener nofollow">
 						<img src="https://urwq.moe/88x31.png" alt="urwq" />
 					</a>

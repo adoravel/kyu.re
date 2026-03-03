@@ -55,7 +55,7 @@ export function Footer() {
 				© {new Date().getFullYear()} <span class="highlight">kyure</span>
 				{" · "}
 				Made with <span class="highlight">❤</span> · Source code available at{" "}
-				<a href="https://kyu.re/~kyu.re">git.acpi.at</a> under the{" "}
+				<a href="https://kyu.re/~web">https://kyu.re/~web</a> under the{" "}
 				<a href="https://spdx.org/licenses/AGPL-3.0-or-later.html">
 					GNU Affero General Public License v3.0
 				</a>
