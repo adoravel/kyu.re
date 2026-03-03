@@ -1,4 +1,9 @@
-import { css, Import } from "../mech/css.ts";
+/**
+ * Copyright (c) 2025 adoravel
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+import { css, Import } from "~/mech/css.ts";
 
 const style = css(`
 	:scope {

@@ -9,10 +9,11 @@
 		}
 	},
 	"imports": {
+		"@musicorum/lastfm": "npm:@musicorum/lastfm@^0.4.0",
 		"~/": "./src/",
 		"@minify-html/deno": "jsr:@minify-html/deno@^0.18.1",
 		"@std/path": "jsr:@std/path@^1.1.4",
-		"@july/snarl": "jsr:@july/snarl@^0.3.2",
+		"@july/snarl": "jsr:@july/snarl@^0.3.3",
 		"@std/encoding": "jsr:@std/encoding@^1.0.10"
 	},
 	"fmt": {

@@ -108,6 +108,27 @@ export function cssMiddleware(): Middleware {
 	};
 }
 
+export function styleInjectionMiddleware(): Middleware {
+	return async (ctx, next) => {
+		const res = await next();
+
+		const mem = contextualisedStyles.get(ctx);
+		if (!mem || mem.size === 0) return res;
+
+		const html = await res.text();
+
+		const links = [...mem]
+			.map((hash) => `<link rel="stylesheet" href="/css/${hash}.css">`)
+			.join("");
+
+		const injected = html.replace("</head>", `${links}</head>`);
+
+		return new Response(injected, {
+			headers: res.headers,
+		});
+	};
+}
+
 declare module "@july/snarl" {
 	interface Context {
 		useStyles(...styles: ScopedStyles<string>[]): void;
@@ -146,7 +167,6 @@ Object.defineProperty(Context.prototype, "styles", {
 				);
 			}
 
-			mem.clear();
 			return jsx(Fragment, { children: nodes });
 		};
 	},
@@ -157,5 +177,5 @@ export function Import({ styles = [] }: { styles: ScopedStyles<string>[] }) {
 	if (styles.length) {
 		ctx.useStyles(...styles);
 	}
-	return jsx("head", { children: ctx.styles({}) as JsxElement[] });
+	return null;
 }

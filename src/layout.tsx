@@ -8,22 +8,25 @@ import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
 import { css } from "./mech/css.ts";
 import meowmix1 from "./hash/meowmix1.ts";
 
-const styles = `
-	:root {
-		--theme-background: #0e0811;
-		--theme-background-alt: #11111b;
-		--theme-surface: #18111a;
-		--theme-surface-border: #2a242d;
-		--theme-foreground: #f4e2f2;
-		--theme-primary: #eec0f4;
-		--theme-foreground-alt: #b9a6c8;
-		--theme-foreground-bruh: #987f9c;
-		--theme-separator: #313244;
-
+const styles = css(`
+	:scope {
+		--theme-background: #151217;
+		--theme-background-alt: #3b383d;
+		--theme-surface: #211e24;
+		--theme-surface-border: #2c292e;
+		--theme-foreground: #e7e0e7;
+		--theme-primary: #cba6f7;
+		--theme-on-primary: #57377f;
+		--theme-foreground-alt: #cdc3d1;
+		--theme-foreground-bruh: #968e9a;
+		--theme-inner: #100d12;
+		--theme-inner-border: #211e24;
+		
 		--space-0: 0.16rem;
 		--space-1: 0.25rem;
 		--space-2: 0.5rem;
 		--space-pad-surface: 0.625rem;
+		--space-pad-surface-2: 0.325rem;
 		--space-3: 0.75rem;
 		--space-4: 1rem;
 		--space-5: 1.25rem;
@@ -53,7 +56,7 @@ const styles = `
 		--radius-circle: 1000px;
 		--radius-music: 15%;
 
-		--transition-fast: 0.2s ease-in-out;
+		--transition-fast: 0.16s ease-in-out;
 		--transition-smooth: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
 		--font-size-xs: 11px;
@@ -117,7 +120,23 @@ const styles = `
 	#content {
 		view-transition-name: content;
 	}
-`;
+
+	body *, body *::before, body *::after {
+		transition: all var(--transition-fast);
+	}
+
+	section > a, .link, p a {
+		&::after {
+			content: '';
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			margin-left: 8px;
+			background-color: var(--theme-primary);
+			mask: no-repeat center / contain url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4IDgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CiAgPHJlY3QgeD0iMiIgeT0iMCIgd2lkdGg9IjYiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSI0IiB5PSIyIiB3aWR0aD0iNCIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjIiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSIwIiB5PSI2IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
+		}
+	}
+`);
 
 export interface LayoutProps {
 	children?: JsxElement | JsxElement[];
@@ -169,11 +188,24 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 	collect(children, result);
 
 	return (
-		<html lang="en">
+		<html lang="en" class={styles.scope}>
 			<head>
 				<meta charset="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<style type="text/css">{styles}</style>
+				<style type="text/css"></style>
+				<link rel="icon" type="image/png" href="/favicon.png" />
+				{/* @ts-expect-error */}
+				<meta property="og:site_name" content="kyu.re" />
+				{/* @ts-expect-error */}
+				<meta property="og:type" content="profile" />
+				{/* @ts-expect-error */}
+				<meta property="og:description" content="one of the girls of all time" />
+				{/* @ts-expect-error */}
+				<meta property="og:image" content="/bnuy.webp" />
+				{/* @ts-expect-error */}
+				<meta property="og:title" content="random corner" />
+				<meta name="theme-color" content="#151217" />
+				<link rel="stylesheet" href={`/css/${styles.scope}.css`} />
 				<link rel="stylesheet" href="/fonts/iosevka-custom/import.css" />
 				{result.head}
 			</head>

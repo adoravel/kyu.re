@@ -35,8 +35,8 @@ function purrmux1(input: string) {
 export default function meowmix1(input: string) {
 	let bits = purrmux1(input), mrrp = "";
 
-    let syllables = (bits & 0b11) + 1;
-	bits >>>= 2;
+    let syllables = (bits & 0b111) + 1;
+	bits >>>= 3;
 
 	while (syllables--) {
         const mask = bits & 0b111111;

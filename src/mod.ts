@@ -4,16 +4,16 @@
  */
 
 import { createRouter } from "@july/snarl";
-import { cssMiddleware as scopedStyles } from "~/mech/css.ts";
+import { cssMiddleware as scopedStyles, styleInjectionMiddleware } from "~/mech/css.ts";
 import { scanRoutes as scan } from "./mech/routing.ts";
 import minify from "./mech/mini.ts";
 import { contextMiddleware } from "./global.ts";
 import { staticFiles } from "@july/snarl";
 
 const router = createRouter();
-router.use(minify(), contextMiddleware(), scopedStyles());
+router.use(minify(), styleInjectionMiddleware(), contextMiddleware(), scopedStyles());
 router.use(staticFiles("./static"));
 
 scan(router);
 
-Deno.serve(router.fetch);
+Deno.serve({ port: 8254 }, router.fetch);

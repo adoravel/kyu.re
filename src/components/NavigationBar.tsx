@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { retrieveContext } from "../global.ts";
-import { css, Import } from "../mech/css.ts";
+import { css, Import } from "~/mech/css.ts";
 
 const style = css(`
 	:scope {
