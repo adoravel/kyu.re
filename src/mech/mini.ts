@@ -11,13 +11,6 @@ const cache = new Map<string, string>();
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-async function sha1(input: string): Promise<string> {
-	const hash = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(input));
-	return Array.from(new Uint8Array(hash))
-		.map((b) => b.toString(16).padStart(2, "0"))
-		.join("");
-}
-
 export default function minify(): Middleware {
 	return async (_ctx: Context, next: () => Promise<Response>) => {
 		const response = await next();
@@ -30,15 +23,16 @@ export default function minify(): Middleware {
 		let body = await response.text();
 		if (!body) return response;
 
-		const hash = await sha1(body);
-		if (cache.has(hash)) {
-			return new Response(cache.get(hash), {
+		const cached = cache.get(body);
+		if (cached) {
+			return new Response(cached, {
 				status: response.status,
 				statusText: response.statusText,
 				headers: response.headers,
 			});
 		}
 
+		const originalBody = body;
 		if (contentType.includes("text/css")) {
 			body = body
 				.replace(/\/\*[\s\S]*?\*\//g, "")
@@ -54,7 +48,7 @@ export default function minify(): Middleware {
 			});
 			body = decoder.decode(data);
 		}
-		cache.set(hash, body);
+		cache.set(originalBody, body);
 
 		return new Response(body, {
 			status: response.status,

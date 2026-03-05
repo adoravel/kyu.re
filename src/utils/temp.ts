@@ -14,8 +14,8 @@ export async function withInterval<T>(
 		clearInterval(timer);
 		try {
 			value = await callback();
-		} catch (_) {
-			// no-op
+		} catch (e) {
+			console.warn("withInterval: op failed, keeping stale value", e);
 		}
 		timer = setInterval(tick, seconds * 1000);
 	}

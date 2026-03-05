@@ -5,8 +5,7 @@
     "jsr:@minify-html/deno@~0.18.1": "0.18.1",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.12": "1.0.12",
-    "jsr:@std/path@^1.1.4": "1.1.4",
-    "npm:@musicorum/lastfm@0.4": "0.4.0"
+    "jsr:@std/path@^1.1.4": "1.1.4"
   },
   "jsr": {
     "@july/snarl@0.3.4": {
@@ -30,11 +29,6 @@
       "dependencies": [
         "jsr:@std/internal"
       ]
-    }
-  },
-  "npm": {
-    "@musicorum/lastfm@0.4.0": {
-      "integrity": "sha512-0NzbG0AkFhRtg5tSwvANPLi4A5wNmeeoah4RdYOFooCWKxkItjcMn4kDiXkIksd+EYlmGvY2QEfnG99AOXTSkQ=="
     }
   },
   "redirects": {
@@ -74,8 +68,7 @@
       "jsr:@july/snarl@~0.3.4",
       "jsr:@minify-html/deno@~0.18.1",
       "jsr:@std/encoding@^1.0.10",
-      "jsr:@std/path@^1.1.4",
-      "npm:@musicorum/lastfm@0.4"
+      "jsr:@std/path@^1.1.4"
     ]
   }
 }

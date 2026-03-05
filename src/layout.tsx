@@ -6,8 +6,8 @@
 import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
 import { css } from "./mech/css.ts";
 
-const styles = css(`
-	:scope {
+const styles = /* css */ `
+	:root {
 		--theme-background: #151217;
 		--theme-background-alt: #3b383d;
 		--theme-surface: #211e24;
@@ -57,10 +57,12 @@ const styles = css(`
 		--transition-fast: 0.16s ease-in-out;
 		--transition-smooth: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-		--font-size-xs: 11px;
-		--font-size-sm: 12px;
+		--font-size-xs: 0.6875rem;
+		--font-size-sm: 0.75rem;
 		--font-size-md: 0.875rem;
-		--font-size-base: 17px;
+		--font-size-text: 0.9rem;
+		--font-size-headsub: 1rem;
+		--font-size-base: 1.0625rem;
 		--font-size-lg: 1.1rem;
 		--font-size-xl: 1.5rem;
 		--font-size-2xl: 2.4rem;
@@ -79,15 +81,22 @@ const styles = css(`
 		box-sizing: border-box;
 		margin: 0;
 	}
-
+	
 	body {
-		background-color: var(--theme-background);
-		color: var(--theme-foreground);
-		max-width: var(--max-width);
 		margin: 0 auto;
-		padding: var(--spacing-xl) 16px;
+		padding: clamp(1rem, 5vw, var(--spacing-xl)) clamp(1rem, 4vw, 1.5rem);
+		max-width: var(--max-width);
 	}
 
+	html, body {
+		background-color: var(--theme-background);
+		color: var(--theme-foreground);
+	}
+
+	html {
+    	overflow-x:clip;
+	}
+	
 	html,
 	body,
 	pre,
@@ -97,7 +106,7 @@ const styles = css(`
 			"Iosevka Custom Web", "Iosevka Custom", Iosevka, monospace, sans-serif;
 		font-size: var(--font-size-base);
 		text-rendering: optimizeLegibility;
-		line-height: 1.75rem;
+		line-height: 1.6rem;
 	}
 
 	a {
@@ -107,20 +116,21 @@ const styles = css(`
 
 	section p {
 		margin-bottom: var(--spacing-md);
-		font-size: 0.9em;
+		font-size: var(--font-size-text);
 		color: var(--theme-foreground-alt);
 	}
 	
 	@view-transition {
 		navigation: auto;
 	}
-
-	#content {
-		view-transition-name: content;
-	}
-
+	
 	body *, body *::before, body *::after {
-		transition: all var(--transition-fast);
+	    transition:
+			color var(--transition-fast),
+			background-color var(--transition-fast),
+			border-color var(--transition-fast),
+			opacity var(--transition-fast),
+			filter var(--transition-fast);
 	}
 
 	section > a, .link, p a {
@@ -134,7 +144,7 @@ const styles = css(`
 			mask: no-repeat center / contain url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4IDgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CiAgPHJlY3QgeD0iMiIgeT0iMCIgd2lkdGg9IjYiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSI0IiB5PSIyIiB3aWR0aD0iNCIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjIiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSIwIiB5PSI2IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
 		}
 	}
-`);
+`;
 
 export interface LayoutProps {
 	children?: JsxElement | JsxElement[];
@@ -186,11 +196,10 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 	collect(children, result);
 
 	return (
-		<html lang="en" class={styles.scope}>
+		<html lang="en">
 			<head>
 				<meta charset="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<style type="text/css"></style>
 				<link rel="icon" type="image/png" href="/favicon.png" />
 				<meta property="og:site_name" content="kyu.re" />
 				<meta property="og:type" content="profile" />
@@ -198,7 +207,7 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 				<meta property="og:image" content="/bnuy.webp" />
 				<meta property="og:title" content="random corner" />
 				<meta name="theme-color" content="#151217" />
-				<link rel="stylesheet" href={`/css/${styles.scope}.css`} />
+				<style>{styles}</style>
 				<link rel="stylesheet" href="/fonts/iosevka-custom/import.css" />
 				{result.head}
 			</head>

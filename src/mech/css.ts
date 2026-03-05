@@ -5,7 +5,6 @@
 
 import meowmix1 from "~/hash/meowmix1.ts";
 import { Context, Middleware } from "@july/snarl";
-import { Component, Fragment, jsx, JsxElement } from "@july/snarl/jsx-runtime";
 import { retrieveContext } from "../global.ts";
 
 const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
@@ -130,8 +129,6 @@ export function styleInjectionMiddleware(): Middleware {
 declare module "@july/snarl" {
 	interface Context {
 		useStyles(...styles: ScopedStyles<string>[]): void;
-
-		get styles(): Component;
 	}
 }
 
@@ -144,31 +141,6 @@ Context.prototype.useStyles = function (...styles: ScopedStyles<string>[]) {
 		mem.add(s.scope);
 	}
 };
-
-Object.defineProperty(Context.prototype, "styles", {
-	get(this: Context): Component {
-		// deno-lint-ignore no-this-alias
-		const ctx = this;
-
-		return (_props: any = {}) => {
-			const mem = contextualisedStyles.get(ctx);
-			if (!mem || mem.size === 0) return null;
-
-			const nodes: JsxElement[] = [];
-
-			for (const hash of mem) {
-				nodes.push(
-					jsx("link", {
-						rel: "stylesheet",
-						href: `/css/${hash}.css`,
-					}),
-				);
-			}
-
-			return jsx(Fragment, { children: nodes });
-		};
-	},
-});
 
 export function Import({ styles = [] }: { styles: ScopedStyles<string>[] }) {
 	const ctx = retrieveContext()!;

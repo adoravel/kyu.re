@@ -4,7 +4,7 @@
  */
 
 import { css, Import } from "../mech/css.ts";
-import { FM_USER, tracks } from "../utils/fm.ts";
+import { FM_USER, tracks } from "../mech/fm.ts";
 
 const fm = css(`
 	.fm-more:hover {
@@ -43,17 +43,13 @@ const fm = css(`
 	}
 
 	:scope {
-		display: flex;
-		flex-wrap: wrap;
+    	display: grid;
+    	grid-template-columns: repeat(auto-fill, minmax(120px, 160px));
 		gap: var(--spacing-lg);
 		padding: 0;
 		margin: 0;
 		margin-top: var(--space-2);
 		list-style: none;
-		@media (max-width: 640px) {
-     		flex-direction: column;
-    		align-items: center;
-   		}
 	}
 	
 	li > a {
@@ -80,32 +76,27 @@ const fm = css(`
 		color: var(--theme-foreground-alt);
 	}
 
-	li > a > .meta strong {
-		font-weight: 600;
-		font-size: var(--font-size-base);
-		color: var(--theme-foreground);
+	li > a > .meta > .loved {
+		color: var(--theme-primary);
 	}
 
-	@media (max-width: 640px) {
-		li > a > .cover {
-			flex-shrink: 0;
-		}
-		li > a > .meta {
-			align-items: flex-start;
-		}
+	li > a > .meta strong {
+		font-weight: 600;
+		font-size: var(--font-size-headsub);
+		color: var(--theme-foreground);
 	}
 
 	li > a > .meta strong,
 	li > a > .meta span {
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	line-clamp: 2;
-	overflow: hidden;
-	word-wrap: anywhere;
-	text-overflow: ellipsis;
-	max-width: 100%;
-}
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		overflow: hidden;
+		word-wrap: anywhere;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
 `);
 
 export function Fm() {

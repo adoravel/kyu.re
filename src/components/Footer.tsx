@@ -84,10 +84,13 @@ export function Footer() {
 						queen#0001
 					</button>
 				</li>
+
 				<li>
-					<button onclick="window.open(atob(this.textContent.trim()),'_blank','noopener')">
-						<Mail />
-						bWFpbG1lOmtAa3l1LnJlCg==
+					<button
+						data-mail="bWFpbHRvOmtAa3l1LnJlCg=="
+						onclick="window.open(atob(this.dataset.mail),'_blank','noopener')"
+					>
+						<Mail /> Email address
 					</button>
 				</li>
 			</ul>

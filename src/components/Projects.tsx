@@ -9,15 +9,17 @@ export interface Project {
 	author: string;
 	name: string;
 	description: string;
-	lang: string;
+	lang: ProjectLanguage;
 	license: string;
 	url: string;
 }
 
-export enum ProjectLanguage {
-	TypeScript = "#3178c6",
-	C = "#555",
-}
+export const ProjectLanguage = {
+	TypeScript: { label: "TypeScript", colour: "#3178c6" },
+	C: { label: "C", colour: "#555" },
+} as const;
+
+export type ProjectLanguage = typeof ProjectLanguage[keyof typeof ProjectLanguage];
 
 export interface ProjectsProps {
 	projects: Project[];
@@ -170,12 +172,8 @@ export default function Projects(props: ProjectsProps) {
 						</div>
 						<p class="description">{project.description}</p>
 						<div class="info">
-							<span class="language" style={`--lang-color:${project.lang};`}></span>
-							{project.lang === ProjectLanguage.TypeScript
-								? "TypeScript"
-								: project.lang === ProjectLanguage.C
-								? "C"
-								: "Unknown"}
+							<span class="language" style={`--lang-color:${project.lang.colour};`}></span>
+							{project.lang.label}
 							<div class="license" aria-label="License">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"

@@ -13,6 +13,7 @@ import { MediaItem } from "~/components/MediaItem.tsx";
 import { Fm } from "~/components/Fm.tsx";
 import KVTable from "~/components/KVTable.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { friends, projects, songs } from "../constants.ts";
 
 const home = css(`
 	#heading {
@@ -21,7 +22,7 @@ const home = css(`
 	}
 
 	#heading h1 {
-		font-size: var(--font-size-2xl);
+		font-size: clamp(1.5rem, 5vw + 0.5rem, var(--font-size-2xl));
 		line-height: 1.2;
 		margin-bottom: var(--space-1);
 		display: block;
@@ -29,9 +30,9 @@ const home = css(`
 
 	#heading h2 {
 		display: inline-block;
-		font-size: 0.875rem;
+		font-size: var(--font-size-md);
 		color: var(--theme-foreground-alt);
-		margin-top: 1ch
+		margin-top: 1ch;
 		width: fit-content;
 	}
 
@@ -39,58 +40,60 @@ const home = css(`
 		display: inline;
 	}
 	
-	section, #heading {
-		position: relative;
 
-		&::before {
-			position: absolute;
-			font-size: 13rem;
-			font-weight: 700;
-			z-index: var(--z-background);
-			user-select: none;
-			letter-spacing: -0.075em;
-			-webkit-text-stroke: 2px var(--theme-foreground);
-			color: transparent;
-			opacity: 0.025;
-			pointer-events: none;
+	@media (min-width: 1550px) {
+		section, #heading {
+			position: relative;
+		
+			&::before {
+				position: absolute;
+				font-size: 13rem;
+				font-weight: 700;
+				user-select: none;
+				letter-spacing: -0.075em;
+				-webkit-text-stroke: 2px var(--theme-foreground);
+				color: transparent;
+				opacity: 0.025;
+				pointer-events: none;
+			}
+		}
+
+		#heading::before {
+			content: ":3";
+			font-size: 7rem !important;
+			top: -0.25em;
+			left: -5.25rem;
+		}
+
+		#intro::before {
+			content: "bio";
+			right: -8rem;
+			top: 2.4rem;
+		}
+
+		#projects::before {
+			content: "↩";
+			transform: rotate(15deg);
+			font-size: calc(var(--font-size-2xl) * 5);
+			right: -16rem;
+			top: 2rem;
+		}
+
+		#donate::before {
+			content: "$";
+			left: -12.5rem;
+			top: 7rem;
+		}
+
+		#friends::before {
+			content: "<3";
+			transform: rotate(15deg);
+			font-size: calc(var(--font-size-2xl) * 5);
+			right: -5rem;
+			top: 3rem;
 		}
 	}
 	
-	#heading::before {
-		content: ":3";
-		font-size: 7rem !important;
-		top: -0.25em;
-		left: -5.25rem;
-	}
-
-	#intro::before {
-		content: "bio";
-		right: -8rem;
-		top: 2.4rem;
-	}
-
-	#projects::before {
-		content: "↩";
-		transform: rotate(15deg);
-		font-size: calc(var(--font-size-2xl) * 5);
-		right: -16rem;
-		top: 2rem;
-	}
-
-	#donate::before {
-		content: "$";
-		left: -12.5rem;
-		top: 7rem;
-	}
-
-	#friends::before {
-		content: "<3";
-		transform: rotate(15deg);
-		font-size: calc(var(--font-size-2xl) * 5);
-		right: -5rem;
-		top: 3rem;
-	}
-
 	section {
 		margin-bottom: var(--section-spacing);
 	}
@@ -130,43 +133,28 @@ const home = css(`
 			background-position: -900% 50%;
 		}
 	}
-
+	
 	.read-more-checkbox {
 		display: none;
-    }
 
-    #read-more-content {
-        display: none !important;
-    }
+		& ~ #read-more-content { display: none !important; }
+		& ~ .read-more-label-collapse { display: none; }
 
-    .read-more-checkbox:checked ~ #read-more-content {
-        display: inline !important;
-    }
+		&:checked {
+			& ~ #read-more-content { display: inline !important; }
+			& ~ .read-more-label-expand { display: none; }
+			& ~ .read-more-label-collapse { display: inline-block; }
+		}
+	}
 
     .read-more-btn {
 		margin-left: 1ch;
         color: var(--theme-primary);
         cursor: pointer;
         text-decoration: none;
-        font-size: 0.9em;
+        font-size: var(--font-size-text);
         user-select: none;
     }
-
-    .read-more-checkbox:checked ~ .read-more-label-expand {
-        display: none;
-    }
-
-    .read-more-label-collapse {
-        display: none;
-    }
-
-    .read-more-checkbox:checked ~ .read-more-label-collapse {
-        display: inline-block;
-    }
-
-	#read-more-content > .break {
-		height: 1em;
-	}
 
 	.buttons {
 		display: flex;
@@ -236,69 +224,17 @@ export default () => {
 			<section id="song">
 				<SectionTitle>Current favourite songs</SectionTitle>
 				<ul class="media">
-					<li>
-						<MediaItem
-							sub="<span>The Death and Birth of an Angel</span><br>fallingwithscissors"
-							header="(Un)Equivalent_Exchange"
-							tag="metalcore, cybergrind"
-							url="https://song.link/i/1722427758"
-							coverUrl="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/1c/d1/c3/1cd1c301-4c19-5c6e-f846-0377c5f89f02/artwork.jpg/512x512bb.jpg"
-							platform="Released on December 22, 2023"
-						/>
-					</li>
-					<li>
-						<MediaItem
-							sub="<span>Overture</span><br>Midnight Grand Orchestra"
-							header="Ryuseigun"
-							tag="j-pop"
-							url="https://song.link/i/1627445792"
-							coverUrl="https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/c9/71/9f/c9719f2f-138e-c180-9129-6126302aa8ac/TFCC-86869WW.jpg/512x512bb.jpg"
-							platform="Released on July 27, 2022"
-						/>
-					</li>
-					<li>
-						<MediaItem
-							sub="<span>Death Spells</span><br>Holy Fawn"
-							header="Drag Me into the Woods"
-							tag="doomgaze"
-							url="https://song.link/i/1455576645"
-							coverUrl="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ba/5e/a2/ba5ea2a0-55ad-78d7-fdb8-0f9c61f947a6/646920322664.jpg/512x512bb.jpg"
-							platform="Released on September 14, 2018"
-						/>
-					</li>
+					{songs.map((song) => (
+						<li>
+							<MediaItem {...song} />
+						</li>
+					))}
 				</ul>
 			</section>
 			<section id="projects">
 				<SectionTitle>Projects</SectionTitle>
 				<Projects
-					projects={[
-						{
-							author: "w",
-							name: "snarl",
-							description: "a minimal web framework for deno",
-							license: "Apache-2.0",
-							url: "/~snarl",
-							lang: ProjectLanguage.TypeScript,
-						},
-						{
-							author: "w",
-							name: "ratazana",
-							description:
-								"minimal implementation of logitech and razer mouse firmware, repurposing their onboard memory as a covert channel for arbitrary data",
-							license: "BSD-3-Clause",
-							url: "/~ratazana",
-							lang: ProjectLanguage.C,
-						},
-						{
-							author: "w",
-							name: "wildcat",
-							description:
-								"lightweight, minimal, portable, crossplatform, and straightforward game engine inspired by raylib",
-							license: "BSD-3-Clause",
-							url: "/~wildcat",
-							lang: ProjectLanguage.C,
-						},
-					]}
+					projects={projects}
 				/>
 			</section>
 			<section id="fm">
@@ -310,8 +246,8 @@ export default () => {
 				<p>Precious friendships; from the bottom of my heart, I am genuinely grateful for their existence~</p>
 				<div class="buttons">
 					<iframe width="88" height="31" style="border:none" src="/button.min.html"></iframe>
-					<a href="https://katelyn.moe/" rel="noopener nofollow">
-						<img src="https://katelyn.moe/8831.png" alt="katelyn" />
+					<a href={friends[0].href} rel="noopener nofollow">
+						<img src={friends[0].src} alt={friends[0].alt} width="88" height="31" />
 					</a>
 					<iframe
 						width="88"
@@ -319,23 +255,12 @@ export default () => {
 						style="border:none"
 						sandbox="allow-scripts allow-popups"
 						srcdoc="<!doctype html><body onload=&#34;d=d.style,d.position=`absolute`,x=0,y=Math.random()*66|0,u=v=1,c=3;setInterval`x+=u${166}y+=v,z=x<=0||x>=20,w=y<=0||y>=67;z&&w?c=(c+3)%6-1:0,u^=-z-z,v^=-w-w;d.background='hwb('+60*c+' 0 0)';d.top=x+'px',d.left=y+'px'`&#34;bgcolor=#000><a href=https://github.com/rniii target=_blank><img id=d src=data:image/gif;base64,R0lGODdhFQALAHcAACH5BAkKAAAALAAAAAAVAAsAgAAAAAAAAAInDI4Xa6m8EkNQPQtivnvuH3mc1pSlU3EUxJrtC8eig851Q2daTjMFADs>"
-					>
-					</iframe>
-					<a href="https://worf.win" rel="noopener nofollow">
-						<img src="https://worf.win/images/worfwin.gif" alt="worf.win" />
-					</a>
-					<a href="https://urwq.moe" rel="noopener nofollow">
-						<img src="https://urwq.moe/88x31.png" alt="urwq" />
-					</a>
-					<a href="https://mugman.tech" rel="noopener nofollow">
-						<img src="https://mugman.tech/88x31/me.gif" alt="mugman" />
-					</a>
-					<a href="https://www.juwuba.xyz" rel="noopener nofollow">
-						<img src="https://www.juwuba.xyz/88x31.gif" alt="Júlia" />
-					</a>
-					<a href="https://codeberg.org/paige" rel="noopener nofollow">
-						<img src="/88x31/paige.gif" alt="paige" />
-					</a>
+					/>
+					{friends.slice(1).map(({ href, src, alt }) => (
+						<a href={href} rel="noopener nofollow">
+							<img src={src} alt={alt} width="88" height="31" />
+						</a>
+					))}
 				</div>
 			</section>
 			<section id="donate">

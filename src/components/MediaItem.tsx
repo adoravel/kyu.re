@@ -7,12 +7,12 @@ import { css, Import } from "~/mech/css.ts";
 
 export interface MediaItemProps {
 	header: string;
-	sub: string;
-	platform: string;
+	album: string;
+	artist: string;
+	releaseDate: string;
 	url: string;
 	tag?: string;
 	coverUrl?: string;
-	action?: string;
 }
 
 const styles = css(`
@@ -25,9 +25,6 @@ const styles = css(`
 		width: 100%;
 		font-size: var(--font-size-sm);
 		color: var(--theme-foreground-alt);
-
-		@media (max-width: 300px) {
-		}
 	}
 
 	.link {
@@ -56,7 +53,7 @@ const styles = css(`
 		gap: var(--space-2);
 	}
 
-	.live {
+	.release-date {
 		display: flex;
 		align-items: center;
 		font-size: var(--font-size-xs);
@@ -158,10 +155,10 @@ function Art({ url }: { url: string | undefined }) {
 
 export function MediaItem({
 	header,
-	sub,
-	platform = "apple music",
+	artist,
+	album,
+	releaseDate,
 	coverUrl,
-	action = "listen",
 	url,
 	tag,
 }: MediaItemProps) {
@@ -170,11 +167,11 @@ export function MediaItem({
 			<Import styles={[styles]} />
 			<div class={styles.scope}>
 				<div class="header">
-					<div class="live">
-						{platform}
+					<div class="release-date">
+						{releaseDate}
 					</div>
 					<a class="link" href={url} target="_blank" rel="noopener noreferrer">
-						{action}
+						listen
 					</a>
 				</div>
 				<a class="body" href={url} target="_blank" rel="noopener noreferrer">
@@ -184,7 +181,11 @@ export function MediaItem({
 							{header}
 							{tag && <span class="info-tag">{tag}</span>}
 						</div>
-						<div class="info-artist">{sub}</div>
+						<div class="info-artist">
+							{album && <span>{album}</span>}
+							<br />
+							{artist}
+						</div>
 					</div>
 				</a>
 			</div>

@@ -44,41 +44,28 @@ function wrap(handler: RouteHandler): RouteHandler {
 
 export async function scanRoutes(router: Router, dir = "../routes"): Promise<void> {
 	const routes: Array<{ path: string; module: RouteModule }> = [];
-	const base = dirname(fromFileUrl(import.meta.url));
+	const base = join(dirname(fromFileUrl(import.meta.url)), dir);
 
-	for await (const entry of Deno.readDir(join(base, dir))) {
-		if (entry.isDirectory) {
-			await scan(join(dir, entry.name), routes);
-		} else if (entry.name.match(/\.(ts|tsx)$/)) {
-			const filepath = join(dir, entry.name);
-			const module = await import(`./${filepath}`);
-			const path = makeRoutePath(relative(dir, filepath));
-			routes.push({ path, module });
-		}
-	}
+	await scan(base, base, routes);
 
 	for (const { path, module } of routes) {
 		for (const method of httpMethods) {
 			const handler = module[method];
-			if (handler) {
-				(router as any)[method.toLowerCase()](path, wrap(handler));
-			}
+			if (handler) (router as any)[method.toLowerCase()](path, wrap(handler));
 		}
-		if (module.default && !module.GET) {
-			router.get(path, wrap(module.default));
-		}
+		if (module.default && !module.GET) router.get(path, wrap(module.default));
 	}
 }
 
-async function scan(dir: string, routes: Array<{ path: string; module: RouteModule }>) {
+async function scan(base: string, dir: string, routes: Array<{ path: string; module: RouteModule }>) {
 	for await (const entry of Deno.readDir(dir)) {
 		const file = join(dir, entry.name);
 
 		if (entry.isDirectory) {
-			await scan(file, routes);
-		} else if (entry.name.match(/\.(ts|tsx)$/)) {
-			const module = await import(import.meta.resolve(`../${file}`));
-			const path = makeRoutePath(relative("routes", file));
+			await scan(base, file, routes);
+		} else if (entry.name.match(/\.tsx?$/)) {
+			const module = await import(import.meta.resolve(file));
+			const path = makeRoutePath(relative(base, file));
 			routes.push({ path, module });
 		}
 	}
