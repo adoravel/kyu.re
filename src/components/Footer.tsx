@@ -52,7 +52,7 @@ export function Footer() {
 			<hr />
 			<Import styles={[footer]} />
 			<p>
-				© {new Date().getFullYear()} <span class="highlight">kyure</span>
+				© {new Date().getFullYear()} <span class="highlight">kyu.re</span>
 				{" · "}
 				Made with <span class="highlight">❤</span> · Source code available at{" "}
 				<a href="https://kyu.re/~web">https://kyu.re/~web</a> under the{" "}
@@ -72,12 +72,12 @@ export function Footer() {
 						adoravel
 					</a>
 				</li>
-				<li>
-					<a href="https://tangled.org/kyu.re">
-						<Tangled />
-						kyu.re
-					</a>
-				</li>
+				{/* <li> */}
+				{/* 	<a href="https://tangled.org/kyu.re"> */}
+				{/* 		<Tangled /> */}
+				{/* 		kyu.re */}
+				{/* 	</a> */}
+				{/* </li> */}
 				<li>
 					<button onclick="let t=this.lastChild,n=t.nodeValue;navigator.clipboard.writeText(n.trim());if(!this.dataset.t){this.dataset.t=n;t.nodeValue=' copied to clipboard';setTimeout(()=>{t.nodeValue=this.dataset.t;delete this.dataset.t},3000)}">
 						<Fluxer />

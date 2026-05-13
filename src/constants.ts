@@ -1,37 +1,37 @@
 import { ProjectLanguage } from "~/components/Projects.tsx";
 import { MediaItemProps } from "./components/MediaItem.tsx";
 
-function art(path: string, size = "512x512bb.jpg"): string {
-	return `https://is1-ssl.mzstatic.com/image/thumb/${path}/${size}`;
+function art(path: string, size = "512x512bb"): string {
+	return `https://is1-ssl.mzstatic.com/image/thumb/${path}.jpg/${size}.jpg`;
 }
 
 export const songs: MediaItemProps[] = [
 	{
-		header: "(Un)Equivalent_Exchange",
-		album: "The Death and Birth of an Angel",
-		artist: "fallingwithscissors",
-		tag: "metalcore, cybergrind",
+		header: "matryoshka",
+		album: "heartstrings",
+		artist: "lexycat",
+		tag: "digicore, plunderphonics",
 		url: "https://song.link/i/1722427758",
-		coverUrl: art("Music116/v4/1c/d1/c3/1cd1c301-4c19-5c6e-f846-0377c5f89f02/artwork.jpg"),
-		releaseDate: "Released on December 22, 2023",
+		coverUrl: art("Music211/v4/b9/7b/66/b97b6672-7c40-8b1c-fd7b-51e8866c0a6a/cover_198662567310"),
+		releaseDate: "Released on August 18, 2024",
 	},
 	{
-		header: "Tá Perdoado",
-		album: "Samba Meu",
-		artist: "Maria Rita",
-		tag: "samba, mpb",
-		url: "https://song.link/i/263514926",
-		coverUrl: art("Music125/v4/f5/8e/a6/f58ea644-ce2d-ed8f-765c-6c8af49b8b7e/mzi.cnyqyppy.jpg"),
-		releaseDate: "Released on September 1, 2007",
+		header: "tile floors",
+		album: "lettinggomakestheheartburnhotter",
+		artist: "fallingwithscissors",
+		tag: "experimental metalcore",
+		url: "https://song.link/i/1681979278",
+		coverUrl: art("Music116/v4/53/4d/18/534d18da-75d9-5d48-2a14-17256a49c2c9/9b0f51d8-05f2-47a6-ba89-01ad8804828b"),
+		releaseDate: "Released on April 17, 2023",
 	},
 	{
-		header: "i need to see",
-		album: "my limbs are not mine",
+		header: "lose myself in you",
+		album: "lose myself in you",
 		artist: "coffret de bijoux",
 		tag: "atmospheric black metal",
-		url: "https://song.link/i/1877277808",
-		coverUrl: art("Music211/v4/27/94/f3/2794f31b-256b-1282-5c7e-6c4d99a3e0f5/5063907590277_cover.jpg"),
-		releaseDate: "Released on January 2, 2026",
+		url: "https://song.link/i/1886039227",
+		coverUrl: art("Music221/v4/39/19/03/39190326-8671-70f7-a488-39ae4d6d74bb/5063959778586_cover"),
+		releaseDate: "Released on March 9, 2026",
 	},
 ];
 
@@ -52,6 +52,29 @@ export const projects = [
 		license: "BSD-3-Clause",
 		url: "/~ratazana",
 		lang: ProjectLanguage.C,
+	},
+	{
+		author: "w",
+		name: "ribbon",
+		description: "modular client mod for fluxer",
+		url: "/~ribbon",
+		license: "EUPL-1.2 & MPL-2.0",
+		lang: ProjectLanguage.TypeScript,
+	},
+	{
+		author: "w",
+		name: "scrobkit",
+		description: "a minimal CLI toolkit for working with last.fm scrobbles",
+		url: "/~scrobkit",
+		license: "BSD-3-Clause",
+		lang: ProjectLanguage.TypeScript,
+	},
+	{
+		author: "w",
+		name: "terracotta",
+		description: "mill-based toolchain for crossplatform and multi-version minecraft mod development",
+		license: "LGPL-3.0",
+		lang: ProjectLanguage.Scala,
 	},
 	{
 		author: "w",

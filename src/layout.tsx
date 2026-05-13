@@ -4,7 +4,6 @@
  */
 
 import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
-import { css } from "./mech/css.ts";
 
 const styles = /* css */ `
 	:root {
@@ -195,7 +194,7 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 	const result: CollectResult = { head: [], body: [] };
 	collect(children, result);
 
-	return (
+	return "<!DOCTYPE html>" + (
 		<html lang="en">
 			<head>
 				<meta charset="utf-8" />

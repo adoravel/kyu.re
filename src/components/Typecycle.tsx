@@ -61,7 +61,7 @@ export function Typecycle() {
 		<span class={typecycle.scope}>
 			<Import styles={[typecycle]} />
 			<span style="color: var(--theme-foreground-alt)">λ</span>
-			<span class="text">kyure</span>
+			<span class="text">kyu.re</span>
 		</span>
 	);
 }

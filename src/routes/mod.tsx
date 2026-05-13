@@ -8,7 +8,7 @@ import { Layout } from "~/layout.tsx";
 import { NavigationBar } from "~/components/NavigationBar.tsx";
 import { Typecycle } from "~/components/Typecycle.tsx";
 import SectionTitle from "~/components/SectionTitle.tsx";
-import Projects, { ProjectLanguage } from "~/components/Projects.tsx";
+import Projects from "~/components/Projects.tsx";
 import { MediaItem } from "~/components/MediaItem.tsx";
 import { Fm } from "~/components/Fm.tsx";
 import KVTable from "~/components/KVTable.tsx";
@@ -17,13 +17,13 @@ import { friends, projects, songs } from "../constants.ts";
 
 const home = css(`
 	#heading {
-		margin-bottom: var(--spacing-2xl);
+		margin-bottom: var(--section-spacing);
 		position: relative;
 	}
 
 	#heading h1 {
 		font-size: clamp(1.5rem, 5vw + 0.5rem, var(--font-size-2xl));
-		line-height: 1.2;
+		line-height: 1.25;
 		margin-bottom: var(--space-1);
 		display: block;
 	}
@@ -155,6 +155,10 @@ const home = css(`
         font-size: var(--font-size-text);
         user-select: none;
     }
+
+	.break {
+		height: 1em;
+	}
 
 	.buttons {
 		display: flex;

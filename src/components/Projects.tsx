@@ -17,6 +17,7 @@ export interface Project {
 export const ProjectLanguage = {
 	TypeScript: { label: "TypeScript", colour: "#3178c6" },
 	C: { label: "C", colour: "#555" },
+	Scala: { label: "Scala", colour: "#c22d40" },
 } as const;
 
 export type ProjectLanguage = typeof ProjectLanguage[keyof typeof ProjectLanguage];
@@ -57,7 +58,7 @@ const projects = css(`
 	.project-card:hover {
   		background-color: rgba(255, 255, 255, 0.025);
   		border-color: rgba(255, 255, 255, 0.125);
-
+		
 		&::before {
 			transform: scale(1.125);
 			opacity: 1;
@@ -77,8 +78,9 @@ const projects = css(`
 		text-align: center;
 		align-items: center;
 		justify-content: center;
+		transition: transform 0.1s var(--transition-fast);
 		-webkit-text-stroke: 2px var(--theme-inner-border);
-		opacity: 0.16;
+		opacity: 0.32;
 	}
 
 	.external-icon {
@@ -102,7 +104,7 @@ const projects = css(`
 	}
 
 	.author {
-		font-size: calc(var(--font-size-sm) * 1.25);
+		font-size: var(--font-size-md);
 		margin-bottom: var(--space-1)
 	}
 

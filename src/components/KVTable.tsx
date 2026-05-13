@@ -14,7 +14,7 @@ const table = css(`
 		display: grid;
     	grid-template-columns: minmax(80px, 140px) 1fr;
 		border-bottom: 1px solid var(--theme-surface-border);
-		transition: background 0.1s;
+		transition: background 0.1s var(--transition-fast);
 	}
 	
 	.kv-row:last-child { border-bottom: none; }
