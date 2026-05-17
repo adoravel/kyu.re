@@ -2,7 +2,6 @@
  * Copyright (c) 2025 adoravel
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-// @ts-nocheck bruh
 
 interface IconProps {
 	size?: number | string;
@@ -10,7 +9,7 @@ interface IconProps {
 	title?: string;
 }
 
-export function Tangled({ size = 24, class: className, title }: IconProps) {
+export function Tangled({ size = 24, class: className, title = "Tangled" }: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -18,7 +17,7 @@ export function Tangled({ size = 24, class: className, title }: IconProps) {
 			viewBox="0 0 24.122343 23.274094"
 			xmlns="http://www.w3.org/2000/svg"
 			class={className}
-			aria-label={title ?? "Tangled Dolly"}
+			aria-label={title ?? "Tangled"}
 			role="img"
 		>
 			{title && <title>{title}</title>}
@@ -30,7 +29,7 @@ export function Tangled({ size = 24, class: className, title }: IconProps) {
 	);
 }
 
-export function GitHub({ size = 24, class: className, title }: IconProps) {
+export function GitHub({ size = 24, class: className, title = "GitHub" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -41,13 +40,13 @@ export function GitHub({ size = 24, class: className, title }: IconProps) {
 			fill="currentColor"
 			class={className}
 		>
-			<title>{title ?? "GitHub"}</title>
+			{title && <title>{title}</title>}
 			<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
 		</svg>
 	);
 }
 
-export function Discord({ size = 24, class: className, title }: IconProps) {
+export function Discord({ size = 24, class: className, title = "Discord" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -58,13 +57,13 @@ export function Discord({ size = 24, class: className, title }: IconProps) {
 			fill="currentColor"
 			class={className}
 		>
-			<title>{title ?? "Discord"}</title>
+			{title && <title>{title}</title>}
 			<path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
 		</svg>
 	);
 }
 
-export function Fluxer({ size = 24, class: className, title }: IconProps) {
+export function Fluxer({ size = 24, class: className, title = "Fluxer" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -84,7 +83,7 @@ export function Fluxer({ size = 24, class: className, title }: IconProps) {
 	);
 }
 
-export function Signal({ size = 24, class: className, title }: IconProps) {
+export function Signal({ size = 24, class: className, title = "Signal" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -95,13 +94,13 @@ export function Signal({ size = 24, class: className, title }: IconProps) {
 			fill="currentColor"
 			class={className}
 		>
-			<title>{title ?? "Signal"}</title>
+			{title && <title>{title}</title>}
 			<path d="M12 0q-.934 0-1.83.139l.17 1.111a11 11 0 0 1 3.32 0l.172-1.111A12 12 0 0 0 12 0M9.152.34A12 12 0 0 0 5.77 1.742l.584.961a10.8 10.8 0 0 1 3.066-1.27zm5.696 0-.268 1.094a10.8 10.8 0 0 1 3.066 1.27l.584-.962A12 12 0 0 0 14.848.34M12 2.25a9.75 9.75 0 0 0-8.539 14.459c.074.134.1.292.064.441l-1.013 4.338 4.338-1.013a.62.62 0 0 1 .441.064A9.7 9.7 0 0 0 12 21.75c5.385 0 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25m-7.092.068a12 12 0 0 0-2.59 2.59l.909.664a11 11 0 0 1 2.345-2.345zm14.184 0-.664.909a11 11 0 0 1 2.345 2.345l.909-.664a12 12 0 0 0-2.59-2.59M1.742 5.77A12 12 0 0 0 .34 9.152l1.094.268a10.8 10.8 0 0 1 1.269-3.066zm20.516 0-.961.584a10.8 10.8 0 0 1 1.27 3.066l1.093-.268a12 12 0 0 0-1.402-3.383M.138 10.168A12 12 0 0 0 0 12q0 .934.139 1.83l1.111-.17A11 11 0 0 1 1.125 12q0-.848.125-1.66zm23.723.002-1.111.17q.125.812.125 1.66c0 .848-.042 1.12-.125 1.66l1.111.172a12.1 12.1 0 0 0 0-3.662M1.434 14.58l-1.094.268a12 12 0 0 0 .96 2.591l-.265 1.14 1.096.255.36-1.539-.188-.365a10.8 10.8 0 0 1-.87-2.35m21.133 0a10.8 10.8 0 0 1-1.27 3.067l.962.584a12 12 0 0 0 1.402-3.383zm-1.793 3.848a11 11 0 0 1-2.345 2.345l.664.909a12 12 0 0 0 2.59-2.59zm-19.959 1.1L.357 21.48a1.8 1.8 0 0 0 2.162 2.161l1.954-.455-.256-1.095-1.953.455a.675.675 0 0 1-.81-.81l.454-1.954zm16.832 1.769a10.8 10.8 0 0 1-3.066 1.27l.268 1.093a12 12 0 0 0 3.382-1.402zm-10.94.213-1.54.36.256 1.095 1.139-.266c.814.415 1.683.74 2.591.961l.268-1.094a10.8 10.8 0 0 1-2.35-.869zm3.634 1.24-.172 1.111a12.1 12.1 0 0 0 3.662 0l-.17-1.111q-.812.125-1.66.125a11 11 0 0 1-1.66-.125" />
 		</svg>
 	);
 }
 
-export function Telegram({ size = 24, class: className, title }: IconProps) {
+export function Bluesky({ size = 24, class: className, title = "Bluesky" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -112,30 +111,13 @@ export function Telegram({ size = 24, class: className, title }: IconProps) {
 			fill="currentColor"
 			class={className}
 		>
-			<title>{title ?? "Telegram"}</title>
-			<path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-		</svg>
-	);
-}
-
-export function Bluesky({ size = 24, class: className, title }: IconProps) {
-	return (
-		<svg
-			role="img"
-			viewBox="0 0 24 24"
-			width={size}
-			height={size}
-			xmlns="http://www.w3.org/2000/svg"
-			fill="currentColor"
-			class={className}
-		>
-			<title>{title ?? "Bluesky"}</title>
+			{title && <title>{title}</title>}
 			<path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026" />
 		</svg>
 	);
 }
 
-export function Twitter({ size = 24, class: className, title }: IconProps) {
+export function Twitter({ size = 24, class: className, title = "Twitter" }: IconProps) {
 	return (
 		<svg
 			role="img"
@@ -146,13 +128,13 @@ export function Twitter({ size = 24, class: className, title }: IconProps) {
 			fill="currentColor"
 			class={className}
 		>
-			<title>{title ?? "Twitter"}</title>
+			{title && <title>{title}</title>}
 			<path d="M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z" />
 		</svg>
 	);
 }
 
-export function Mail({ size = 24, class: className, title }: IconProps) {
+export function Mail({ size = 24, class: className, title = "Mail" }: IconProps) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -166,6 +148,55 @@ export function Mail({ size = 24, class: className, title }: IconProps) {
 			{title && <title>{title}</title>}
 			<path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
 			<path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+		</svg>
+	);
+}
+
+export function License({ size = 24, class: className, title = "License" }: IconProps) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			width={size}
+			height={size}
+			fill="none"
+			class={className}
+			role="img"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			{title && <title>{title}</title>}
+			<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+			<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+			<path d="M7 21h10"></path>
+			<path d="M12 3v18"></path>
+			<path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
+		</svg>
+	);
+}
+
+export function ExternalLink({ size = 24, class: className, title = "Open Externally" }: IconProps) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			width={size}
+			height={size}
+			fill="none"
+			class={className}
+			role="img"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			{title && <title>{title}</title>}
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
+			<path d="M11 13l9 -9"></path>
+			<path d="M15 4h5v5"></path>
 		</svg>
 	);
 }

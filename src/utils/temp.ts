@@ -8,18 +8,16 @@ export async function withInterval<T>(
 	seconds: number,
 ): Promise<() => T> {
 	let value: T = await callback();
-	let timer: number | undefined;
 
 	async function tick() {
-		clearInterval(timer);
 		try {
 			value = await callback();
 		} catch (e) {
 			console.warn("withInterval: op failed, keeping stale value", e);
 		}
-		timer = setInterval(tick, seconds * 1000);
+		setInterval(tick, seconds * 1000);
 	}
-	timer = setInterval(tick, seconds * 1000);
+	setInterval(tick, seconds * 1000);
 
 	return () => value;
 }

@@ -3,41 +3,43 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { css, Import } from "../mech/css.ts";
+import { css, Import } from "~/mech/css.ts";
+import { ease, fontSize, spacing, theme } from "~/layout.tsx";
 
 const table = css(`
 	:scope {
-		border: 1px solid var(--theme-surface-border);
+		border: 1px solid ${theme.surfaceBorder};
 	}
 	
 	.kv-row {
 		display: grid;
     	grid-template-columns: minmax(80px, 140px) 1fr;
-		border-bottom: 1px solid var(--theme-surface-border);
-		transition: background 0.1s var(--transition-fast);
+		border-bottom: 1px solid ${theme.surfaceBorder};
+		transition: background ${ease.fast};
 	}
 	
 	.kv-row:last-child { border-bottom: none; }
 	
-	.kv-row:hover { background: var(--theme-surface); }
+	.kv-row:hover { background: ${theme.surface}; }
+	
 	.kv-key, .kv-val {
-		padding: 11px 16px;
+		padding: ${spacing[3]} ${spacing[4]};
 		line-height: 1;
 		font-family: inherit;
 	}
 	
 	.kv-key {
-		font-size: var(--font-size-xs);
+		font-size: ${fontSize.xs};
+		letter-spacing: ${spacing.letter.plus};
+		color: ${theme.textMuted};
+		border-right: 1px solid ${theme.surfaceBorder};
 		font-weight: bold;
-		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--theme-foreground-bruh);
-		border-right: 1px solid var(--theme-surface-border);
 	}
 	
 	.kv-val {
-		font-size: var(--font-size-sm);
-		color: var(--theme-primary);
+		font-size: ${fontSize.sm};
+		color: ${theme.accent};
 	}
 `);
 

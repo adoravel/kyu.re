@@ -3,10 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { boundaries, elevation, fontSize, radius, spacing, theme } from "~/layout.tsx";
 import { css, Import } from "../mech/css.ts";
 import { FM_USER, tracks } from "../mech/fm.ts";
 
 const fm = css(`
+	:scope {
+		margin-top: 0.5rem;
+	}
+
 	.fm-more:hover {
   		opacity: 1;
 	}
@@ -16,8 +21,8 @@ const fm = css(`
 		position: absolute;
 		color: transparent;
 		font-size: 15rem;
-		-webkit-text-stroke: 2px var(--theme-surface-border);
-		z-index: var(--z-background);
+		-webkit-text-stroke: 2px ${theme.surfaceBorder};
+		z-index: ${elevation.below};
 	}
 
 	.fm-more {
@@ -26,17 +31,19 @@ const fm = css(`
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		background: var(--theme-inner);
-		border: 1px solid var(--theme-surface-border);
-		border-radius: var(--radius-music);
 		overflow: hidden;
-		font-size: var(--font-size-sm);
-		color: var(--theme-foreground);
-		padding: var(--space-3);
-		z-index: var(--z-base);
 		width: 100%;
 		height: 100%;
-		opacity: 0.75;
+		opacity: 75%;
+
+		background: ${theme.base};
+		border: 1px solid ${theme.baseBorder};
+		border-radius: ${radius.art};
+		font-size: ${fontSize.sm};
+		color: ${theme.text};
+		padding: ${spacing[3]};
+		z-index: ${elevation.base};
+
 		@media (max-width: 930px) {
 			display: none;
 		}
@@ -45,10 +52,10 @@ const fm = css(`
 	:scope {
     	display: grid;
     	grid-template-columns: repeat(auto-fill, minmax(120px, 160px));
-		gap: var(--spacing-lg);
+		gap: ${spacing[6]};
+		margin-top: ${spacing[2]};
 		padding: 0;
 		margin: 0;
-		margin-top: var(--space-2);
 		list-style: none;
 	}
 	
@@ -56,34 +63,34 @@ const fm = css(`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--space-3);
 		text-align: center;
-		max-width: var(--avatar-size);
+		gap: ${spacing[3]};
+		max-width: ${boundaries.avatarSize};
 	}
 
 	li > a > .cover {
-		width: var(--avatar-size);
-		height: var(--avatar-size);
-		border-radius: var(--radius-music);
+		width: ${boundaries.avatarSize};
+		height: ${boundaries.avatarSize};
+		border-radius: ${radius.art};
+		background: ${theme.lift};
 		object-fit: cover;
-		background: var(--theme-background-alt);
 	}
 
 	li > a > .meta {
 		display: flex;
 		flex-direction: column;
-		font-size: var(--font-size-md);
-		color: var(--theme-foreground-alt);
+		font-size: ${fontSize.md};
+		color: ${theme.subtext};
 	}
 
 	li > a > .meta > .loved {
-		color: var(--theme-primary);
+		color: ${theme.accent};
 	}
 
 	li > a > .meta strong {
 		font-weight: 600;
-		font-size: var(--font-size-headsub);
-		color: var(--theme-foreground);
+		font-size: ${fontSize.base};
+		color: ${theme.text};
 	}
 
 	li > a > .meta strong,

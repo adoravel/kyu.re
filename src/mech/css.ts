@@ -10,7 +10,6 @@ import { retrieveContext } from "../global.ts";
 const CLASS_RE = /\.([a-zA-Z_][\w-]*)/g;
 
 const styleRegistry = new Map<string, string>();
-
 const contextualisedStyles = new WeakMap<Context<any>, Set<string>>();
 
 type ExtractFlatClassKeys<T extends string> = T extends `${infer _}.${infer Rest}`
@@ -27,10 +26,95 @@ export type ScopedStyles<T extends string> =
 	& {
 		readonly scope: string;
 		href: string;
-
-		/** mark this stylesheet as used for the current request (for contextual injection) */
 		use(ctx: Context): void;
 	};
+
+// brace characters inside string values should be replaced with unicode escapes
+const CONDITIONAL_AT = /^@(media|supports|layer|container|document)\b/i;
+
+const RAW_AT = /^@(keyframes|font-face|font-palette-values|counter-style|page|viewport|color-profile)\b/i;
+
+function prefixSelectors(selector: string, scope: string): string {
+	return selector
+		.split(",")
+		.map((s) => s.trim())
+		.filter(Boolean)
+		.map((s) => {
+			if (s.includes(":scope")) return s.replace(/:scope\b/g, scope);
+			if (s.startsWith("&")) return s;
+			return `${scope} ${s}`;
+		})
+		.join(",");
+}
+
+function transformRules(src: string, scope: string): string {
+	let out = "";
+	let i = 0;
+
+	while (i < src.length) {
+		while (i < src.length && src[i] <= " ") i++;
+		if (i >= src.length) break;
+
+		if (src[i] === "/" && src[i + 1] === "*") {
+			const end = src.indexOf("*/", i + 2);
+			i = end === -1 ? src.length : end + 2;
+			continue;
+		}
+
+		if (src[i] === "}") {
+			i++;
+			break;
+		}
+
+		let sel = "";
+		let hasBlock = false;
+
+		scan: while (i < src.length) {
+			if (src[i] === "/" && src[i + 1] === "*") {
+				const end = src.indexOf("*/", i + 2);
+				i = end === -1 ? src.length : end + 2;
+				continue;
+			}
+			switch (src[i]) {
+				case "{":
+					hasBlock = true;
+					i++;
+					break scan;
+				case "}":
+					break scan;
+				default:
+					sel += src[i++];
+			}
+		}
+
+		sel = sel.trim();
+		if (!hasBlock || !sel) break;
+
+		const blockStart = i;
+		let depth = 1;
+		while (i < src.length && depth > 0) {
+			if (src[i] === "{") depth++;
+			else if (src[i] === "}") depth--;
+			i++;
+		}
+
+		const block = src.slice(blockStart, i - 1);
+
+		if (RAW_AT.test(sel)) {
+			out += `${sel}{${block}}`;
+		} else if (CONDITIONAL_AT.test(sel)) {
+			out += `${sel}{${transformRules(block, scope)}}`;
+		} else {
+			out += `${prefixSelectors(sel, scope)}{${block}}`;
+		}
+	}
+
+	return out;
+}
+
+function generateScopedStyle(content: string, scopeId: string): string {
+	return transformRules(content.trim(), `.${scopeId}`);
+}
 
 function extractClassKeys(input: string): Set<string> {
 	const classes = new Set<string>();
@@ -42,10 +126,6 @@ function extractClassKeys(input: string): Set<string> {
 	}
 
 	return classes;
-}
-
-function generateScopedStyle(content: string, scopeId: string): string {
-	return `@scope(.${scopeId}){${content}}`;
 }
 
 export function css<const S extends string>(src: S): ScopedStyles<S> {
@@ -77,6 +157,7 @@ export function css<const S extends string>(src: S): ScopedStyles<S> {
 	for (const key of keys) {
 		result[key] = key;
 	}
+
 	return result as ScopedStyles<S>;
 }
 

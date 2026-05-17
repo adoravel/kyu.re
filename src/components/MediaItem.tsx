@@ -4,6 +4,7 @@
  */
 
 import { css, Import } from "~/mech/css.ts";
+import { boundaries, fontSize, radius, spacing, theme } from "~/layout.tsx";
 
 export interface MediaItemProps {
 	header: string;
@@ -19,54 +20,55 @@ const styles = css(`
 	:scope {
 		display: flex;
 		flex-direction: column;
-		background: var(--theme-inner);
-		border: 1px solid var(--theme-surface-border);
-		border-radius: var(--radius-lg);
+		background: ${theme.base};
+		border: 1px solid ${theme.baseBorder};
+		border-radius: ${radius.lg};
+		font-size: ${fontSize.sm};
+		color: ${theme.subtext};
 		width: 100%;
-		font-size: var(--font-size-sm);
-		color: var(--theme-foreground-alt);
 	}
 
-	.link {
+	.listen-link {
 		margin-left: auto;
-		gap: var(--space-1);
-		font-size: var(--font-size-xs);
-		color: var(--theme-foreground-bruh);
+		gap: ${spacing[1]};
+		font-size: ${fontSize.xs};
+		color: ${theme.textMuted};
 	}
 
-	.link::after {
-		background-color: var(--theme-foreground-bruh) !important; 
+	.listen-link::after {
+		background-color: ${theme.textMuted} !important; 
 	}
 	
-	.link:hover {
+	.listen-link:hover {
 		&::after {
-			background-color: var(--theme-primary) !important; 
+			background-color: ${theme.accent} !important; 
 		}
-		color: var(--theme-primary);
+		color: ${theme.accent};
 	}
 	
 	.header {
-		border-bottom: 1px solid var(--theme-inner-border);
-		padding: var(--space-2) var(--space-4);
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
+		border-bottom: 1px solid ${theme.baseBorder};
+		padding: ${spacing[2]} ${spacing[4]};
+		gap: ${spacing[2]};
 	}
 
 	.release-date {
 		display: flex;
 		align-items: center;
-		font-size: var(--font-size-xs);
-		color: var(--theme-foreground-bruh);
-		letter-spacing: 0.06em;
+		font-size: ${fontSize.xs};
+		color: ${theme.textMuted};
+		letter-spacing: ${spacing.letter.plus};
 	}
 
 	.body {
-		padding: var(--space-4);
 		display: flex;
-		gap: var(--space-4);
 		align-items: flex-start;
-		@media (max-width: 600px) {
+		padding: ${spacing[4]};
+		gap: ${spacing[4]};
+		
+		@media (max-width: ${boundaries.mobileMaxWidth}) {
 			align-items: center;
 			text-align: center;
 			flex-direction: column;
@@ -76,16 +78,16 @@ const styles = css(`
 	.art {
 		width: 64px;
 		height: 64px;
-		background: var(--theme-inner);
-		border: 1px solid var(--theme-inner-border);
-		border-radius: var(--radius-music);
 		overflow: hidden;
 		flex-shrink: 0;
+		background: ${theme.base};
+		border: 1px solid ${theme.baseBorder}; 
+		border-radius: ${radius.art};
 	}
 	
 	.info-tag {
 		margin-left: 1ch;
-		color: var(--theme-foreground-bruh);
+		color: ${theme.textMuted};
 	}
 	
 	.default-pattern {
@@ -96,12 +98,12 @@ const styles = css(`
 		grid-template-rows: repeat(4, 1fr);
 	}
 
-	.art-px   { display: block; }
-	.art-px-0 { background: var(--theme-inner); }
-	.art-px-1 { background: var(--theme-primary); opacity: 0.85; }
-	.art-px-2 { background: var(--theme-on-primary); opacity: 0.9; }
-	.art-px-3 { background: var(--theme-foreground-bruh); opacity: 0.25; }
-	.art-px-4 { background: var(--theme-surface-border); }
+	.art-px   { display: block }
+	.art-px-0 { background: ${theme.base} }
+	.art-px-1 { background: ${theme.accent} opacity: 0.85; }
+	.art-px-2 { background: ${theme.onAccent} opacity: 0.9; }
+	.art-px-3 { background: ${theme.textMuted} opacity: 0.25; }
+	.art-px-4 { background: ${theme.surfaceBorder} }
 
 	.art[data-loaded] > .default-pattern {
     	display: none;
@@ -114,24 +116,24 @@ const styles = css(`
 	}
 
 	.info-title {
-		font-size: var(--font-size-md);
-		color: var(--theme-foreground);
+		font-size: ${fontSize.md};
+		color: ${theme.text};
 		font-weight: 500;
 	}
 
 	.info-artist {
-		font-size: var(--font-size-sm);
-		color: var(--theme-foreground-alt);
+		font-size: ${fontSize.sm};
+		color: ${theme.textMuted};
 	}
 
 	.info-artist > span {
-		color: var(--theme-foreground-bruh);
+		colo: ${theme.textMuted};
 	}
 
 	.art-cover {
 		width: 64px;
 		height: 64px;
-		 object-fit: cover;
+		object-fit: cover;
 	}
 `);
 
@@ -170,7 +172,7 @@ export function MediaItem({
 					<div class="release-date">
 						{releaseDate}
 					</div>
-					<a class="link" href={url} target="_blank" rel="noopener noreferrer">
+					<a class="listen-link link" href={url} target="_blank" rel="noopener noreferrer">
 						listen
 					</a>
 				</div>

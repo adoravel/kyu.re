@@ -5,35 +5,37 @@
 
 import { css, Import } from "~/mech/css.ts";
 import { Fluxer, GitHub, Mail, Tangled } from "./Icon.tsx";
+import { fontSize, spacing, theme } from "~/layout.tsx";
 
 const footer = css(`
 	:scope {
-		color: var(--theme-foreground-bruh);
-		font-size: var(--font-size-md);
+		color: ${theme.textMuted};
+		font-size: ${fontSize.md};
 	}
 
 	ul {
 		display: flex;
 		flex-wrap: wrap;
 		padding-left: 0;
-		margin-top: var(--space-4);
+		margin-top: ${spacing[4]};
 		list-style: none;
-		gap: var(--space-2);
+		gap: ${spacing[2]};
 	}
 
 	ul > li > :is(a,button) {
-		font-size: var(--font-size-sm);
+		font-size: ${fontSize.sm};
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--space-1) var(--space-4);
+		padding: ${spacing[1]} ${spacing[4]};
 		gap: 1ch;
-		color: var(--theme-foreground-alt);
-		background-color: var(--theme-surface);
+		color: ${theme.subtext};
+		background-color: ${theme.surface};
 		border: none;
 		outline: none;
 		border-radius: 1000px;
 		cursor: pointer;
+
 		&:hover {
 			filter: brightness(0.75);
 		}
@@ -41,8 +43,12 @@ const footer = css(`
 
 	hr {
 		border: none;
-		border-top: 1px solid var(--theme-surface-border);
-		margin: var(--section-spacing) 0;
+		border-top: 1px solid ${theme.surfaceBorder}; 
+		margin: ${spacing.section} 0;
+	}
+
+	.highlight-rose {
+		color: ${theme.rose};
 	}
 `);
 
@@ -54,7 +60,7 @@ export function Footer() {
 			<p>
 				© {new Date().getFullYear()} <span class="highlight">kyu.re</span>
 				{" · "}
-				Made with <span class="highlight">❤</span> · Source code available at{" "}
+				Made with <span class="highlight-rose">❤</span> · Source code available at{" "}
 				<a href="https://kyu.re/~web">https://kyu.re/~web</a> under the{" "}
 				<a href="https://spdx.org/licenses/AGPL-3.0-or-later.html">
 					GNU Affero General Public License v3.0
@@ -72,12 +78,12 @@ export function Footer() {
 						adoravel
 					</a>
 				</li>
-				{/* <li> */}
-				{/* 	<a href="https://tangled.org/kyu.re"> */}
-				{/* 		<Tangled /> */}
-				{/* 		kyu.re */}
-				{/* 	</a> */}
-				{/* </li> */}
+				<li>
+					<a href="https://tangled.org/kyu.re">
+						<Tangled />
+						kyu.re
+					</a>
+				</li>
 				<li>
 					<button onclick="let t=this.lastChild,n=t.nodeValue;navigator.clipboard.writeText(n.trim());if(!this.dataset.t){this.dataset.t=n;t.nodeValue=' copied to clipboard';setTimeout(()=>{t.nodeValue=this.dataset.t;delete this.dataset.t},3000)}">
 						<Fluxer />

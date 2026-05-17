@@ -5,118 +5,166 @@
 
 import { jsx, JsxElement, JsxNode } from "@july/snarl/jsx-runtime";
 
+export const rem = (val: number | string) => `${val}rem`;
+export const em = (val: number | string) => `${val}em`;
+export const px = (val: number | string) => `${val}px`;
+export const url = (val: string) => `url("${val}")`;
+
+type DeepResolveTokens<T> = {
+	[K in keyof T]: T[K] extends object ? {
+			[P in keyof T[K] as P | (P extends `${infer N extends number}` ? N : never)]: T[K][P] extends object
+				? DeepResolveTokens<T[K][P]>
+				: T[K][P] extends number ? string
+				: T[K][P];
+		}
+		: T[K] extends number ? string
+		: T[K];
+};
+
+export function createTheme<T extends object>(tokens: T): DeepResolveTokens<T> {
+	const resolve = (input: any): any => {
+		if (typeof input !== "object" || input === null) {
+			return typeof input === "number" ? `${input}` : input;
+		}
+
+		return Object.fromEntries(
+			Object.entries(input).map(([key, value]) => [key, resolve(value)]),
+		);
+	};
+
+	return resolve(tokens);
+}
+
+export const tokens = createTheme({
+	theme: {
+		base: "#0d0e12",
+		baseBorder: "#1f1e24",
+		background: "#121317",
+		surface: "#1e1f24",
+		surfaceBorder: "#29292e",
+		lift: "#38393d",
+		text: "#e7e0e7",
+		subtext: "#c3c7d1",
+		textMuted: "#968e9a",
+		accent: "#a6b5f7",
+		accentDim: "#7c8fdb",
+		accentBackground: "#2d3d7f",
+		onAccent: "#d8e0ff",
+		rose: "#f0b3c8",
+		roseBackground: "#5c1d36",
+		onRose: "#ffd9e4",
+		surfaceHover: "rgba(255, 255, 255, 0.025)",
+		surfaceBorderHover: "rgba(255, 255, 255, 0.125)",
+	},
+	spacing: {
+		letter: {
+			tight: em(-.05),
+			plus: em(.03),
+		},
+		"1": rem(.25),
+		"2": rem(.5),
+		"3": rem(.75),
+		"4": rem(1),
+		"5": rem(1.25),
+		"6": rem(1.5),
+		"8": rem(2),
+		"10": rem(2.5),
+		"12": rem(3),
+		"16": rem(4),
+		"18": rem(5),
+		"section": rem(2),
+	},
+	fontSize: {
+		xs: rem(.6875),
+		sm: rem(.75),
+		md: rem(.875),
+		body: rem(.9),
+		base: rem(1),
+		root: px(17),
+		lg: rem(1.1),
+		xl: rem(1.5),
+		"2xl": rem(2.4),
+	},
+	radius: {
+		sm: px(2),
+		md: px(3),
+		lg: px(10),
+		circle: px(1000),
+		art: "15%",
+	},
+	ease: {
+		fast: "0.16s ease-in-out",
+		spring: "0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+	},
+	elevation: {
+		below: "-1",
+		base: "0",
+		raised: "10",
+		overlay: "20",
+		modal: "30",
+	},
+	boundaries: {
+		mobileMaxWidth: px(600),
+		desktopMinWidth: px(1550),
+		maxWidth: em(55),
+		avatarSize: px(160),
+		lineHeight: rem(1.6),
+	},
+	misc: {
+		arrow: url(
+			"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4IDgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CiAgPHJlY3QgeD0iMiIgeT0iMCIgd2lkdGg9IjYiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSI0IiB5PSIyIiB3aWR0aD0iNCIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjIiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSIwIiB5PSI2IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
+		),
+	},
+	fontFamily: {
+		default: '"Iosevka Custom Web", "Iosevka Custom", Iosevka, monospace, sans-serif',
+		heading: "'Space Grotesk', sans-serif",
+	},
+});
+
 const styles = /* css */ `
-	:root {
-		--theme-background: #151217;
-		--theme-background-alt: #3b383d;
-		--theme-surface: #211e24;
-		--theme-surface-border: #2c292e;
-		--theme-foreground: #e7e0e7;
-		--theme-primary: #cba6f7;
-		--theme-on-primary: #57377f;
-		--theme-foreground-alt: #cdc3d1;
-		--theme-foreground-bruh: #968e9a;
-		--theme-inner: #100d12;
-		--theme-inner-border: #211e24;
-		
-		--space-0: 0.16rem;
-		--space-1: 0.25rem;
-		--space-2: 0.5rem;
-		--space-pad-surface: 0.625rem;
-		--space-pad-surface-2: 0.325rem;
-		--space-3: 0.75rem;
-		--space-4: 1rem;
-		--space-5: 1.25rem;
-		--space-6: 1.5rem;
-		--space-7: 2rem;
-		--space-8: 2.5rem;
-		--space-9: 3rem;
-		--space-10: 4rem;
-
-		--spacing-xs: var(--space-1);
-		--spacing-sm: var(--space-2);
-		--spacing-md: var(--space-4);
-		--spacing-lg: var(--space-6);
-		--spacing-xl: var(--space-7);
-		--spacing-2xl: var(--space-9);
-		--spacing-3xl: var(--space-10);
-
-		--section-margin: var(--space-7);
-		--card-padding: var(--space-4);
-		--button-padding-x: var(--space-2);
-		--button-padding-y: var(--space-1);
-		--input-padding: var(--space-3);
-
-		--radius-sm: 2px;
-		--radius-md: 3px;
-		--radius-lg: 10px;
-		--radius-circle: 1000px;
-		--radius-music: 15%;
-
-		--transition-fast: 0.16s ease-in-out;
-		--transition-smooth: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-		--font-size-xs: 0.6875rem;
-		--font-size-sm: 0.75rem;
-		--font-size-md: 0.875rem;
-		--font-size-text: 0.9rem;
-		--font-size-headsub: 1rem;
-		--font-size-base: 1.0625rem;
-		--font-size-lg: 1.1rem;
-		--font-size-xl: 1.5rem;
-		--font-size-2xl: 2.4rem;
-
-		--avatar-size: 160px;
-
-		--max-width: 55em;
-		--section-spacing: 2em;
-
-		--z-background: -1;
-		--z-base: 0;
-		--z-elevated: 10;
-	}
-
 	*, *::before, *::after {
 		box-sizing: border-box;
 		margin: 0;
 	}
 	
-	body {
-		margin: 0 auto;
-		padding: clamp(1rem, 5vw, var(--spacing-xl)) clamp(1rem, 4vw, 1.5rem);
-		max-width: var(--max-width);
-	}
-
 	html, body {
-		background-color: var(--theme-background);
-		color: var(--theme-foreground);
+		background-color: ${tokens.theme.background};
+		color: ${tokens.theme.text};
 	}
 
 	html {
-    	overflow-x:clip;
+    	overflow-x: clip;
+		font-family: ${tokens.fontFamily.default};
+		line-height: ${tokens.boundaries.lineHeight};
+		font-size: ${tokens.fontSize.root};
+		text-rendering: optimizeLegibility;
+	}
+
+	body {
+		margin: 0 auto;
+		padding: ${tokens.spacing[8]} ${tokens.spacing[3]};
+		max-width: ${tokens.boundaries.maxWidth};
 	}
 	
-	html,
-	body,
 	pre,
 	code,
-	button {
-		font-family:
-			"Iosevka Custom Web", "Iosevka Custom", Iosevka, monospace, sans-serif;
-		font-size: var(--font-size-base);
+	button,
+	input,
+	textarea {
+		font-family: inherit;
+		font-size: ${tokens.fontSize.root};
 		text-rendering: optimizeLegibility;
-		line-height: 1.6rem;
 	}
 
 	a {
-		color: var(--theme-primary);
+		color: ${tokens.theme.accent};
 	    text-decoration: none;
 	}
 
 	section p {
-		margin-bottom: var(--spacing-md);
-		font-size: var(--font-size-text);
-		color: var(--theme-foreground-alt);
+		margin-bottom: ${tokens.spacing[4]};
+		font-size: ${tokens.fontSize.body};
+		color: ${tokens.theme.subtext};
 	}
 	
 	@view-transition {
@@ -125,23 +173,36 @@ const styles = /* css */ `
 	
 	body *, body *::before, body *::after {
 	    transition:
-			color var(--transition-fast),
-			background-color var(--transition-fast),
-			border-color var(--transition-fast),
-			opacity var(--transition-fast),
-			filter var(--transition-fast);
+			color ${tokens.ease.fast},
+			background-color ${tokens.ease.fast},
+			border-color ${tokens.ease.fast},
+			opacity ${tokens.ease.fast},
+			filter ${tokens.ease.fast};
 	}
 
-	section > a, .link, p a {
-		&::after {
-			content: '';
-			display: inline-block;
-			width: 8px;
-			height: 8px;
-			margin-left: 8px;
-			background-color: var(--theme-primary);
-			mask: no-repeat center / contain url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4IDgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CiAgPHJlY3QgeD0iMiIgeT0iMCIgd2lkdGg9IjYiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSI0IiB5PSIyIiB3aWR0aD0iNCIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgogIDxyZWN0IHg9IjIiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IndoaXRlIi8+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0id2hpdGUiLz4KICA8cmVjdCB4PSIwIiB5PSI2IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
-		}
+	section > a::after,
+	.link::after,
+	p a::after {
+		content: '';
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		margin-left: 8px;
+		background-color: ${tokens.theme.accent};
+		mask: no-repeat center / contain ${tokens.misc.arrow};
+	}
+
+	::-webkit-scrollbar {
+		width: 3px;
+	}
+ 
+	::-webkit-scrollbar-thumb {
+		background: ${tokens.theme.lift};
+	}
+
+	::selection {
+		background: ${tokens.theme.accent};
+		color: ${tokens.theme.background};
 	}
 `;
 
@@ -203,11 +264,12 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 				<meta property="og:site_name" content="kyu.re" />
 				<meta property="og:type" content="profile" />
 				<meta property="og:description" content="one of the girls of all time" />
-				<meta property="og:image" content="/bnuy.webp" />
-				<meta property="og:title" content="random corner" />
-				<meta name="theme-color" content="#151217" />
-				<style>{styles}</style>
+				<meta property="og:image" content="https://kyu.re/~.png" />
+				<meta property="og:image:type" content="image/png" />
+				<meta property="og:title" content="júlia lívia" />
+				<meta name="theme-color" content={tokens.theme.accentDim} />
 				<link rel="stylesheet" href="/fonts/iosevka-custom/import.css" />
+				<style>{styles}</style>
 				{result.head}
 			</head>
 			<body class={className}>
@@ -216,3 +278,5 @@ export function Layout({ children, class: className }: LayoutProps = {}) {
 		</html>
 	);
 }
+
+export const { theme, spacing, fontSize, radius, ease, boundaries, misc, elevation, fontFamily } = tokens;

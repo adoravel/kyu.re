@@ -1,4 +1,4 @@
-import { ProjectLanguage } from "~/components/Projects.tsx";
+import { Project, ProjectLanguage } from "~/components/Projects.tsx";
 import { MediaItemProps } from "./components/MediaItem.tsx";
 
 function art(path: string, size = "512x512bb"): string {
@@ -35,7 +35,7 @@ export const songs: MediaItemProps[] = [
 	},
 ];
 
-export const projects = [
+export const projects: Project[] = [
 	{
 		author: "w",
 		name: "snarl",
@@ -73,6 +73,7 @@ export const projects = [
 		author: "w",
 		name: "terracotta",
 		description: "mill-based toolchain for crossplatform and multi-version minecraft mod development",
+		url: "/~terracotta",
 		license: "LGPL-3.0",
 		lang: ProjectLanguage.Scala,
 	},
@@ -89,7 +90,7 @@ export const projects = [
 export const friends = [
 	{ href: "https://katelyn.moe/", src: "https://katelyn.moe/8831.png", alt: "katelyn" },
 	{ href: "https://worf.win", src: "https://worf.win/images/worfwin.gif", alt: "worf.win" },
-	{ href: "https://urwq.moe", src: "https://urwq.moe/88x31.png", alt: "urwq" },
+	// { href: "https://urwq.moe", src: "https://urwq.moe/88x31.png", alt: "urwq" },
 	{ href: "https://mugman.tech", src: "https://mugman.tech/88x31/me.gif", alt: "mugman" },
 	{ href: "https://www.juwuba.xyz", src: "https://www.juwuba.xyz/88x31.gif", alt: "Júlia" },
 	{ href: "https://codeberg.org/paige", src: "/88x31/paige.gif", alt: "paige" },

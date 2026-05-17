@@ -4,6 +4,7 @@
  */
 
 import { css, Import } from "~/mech/css.ts";
+import { fontSize, spacing, theme } from "~/layout.tsx";
 
 const style = css(`
 	:scope {
@@ -11,34 +12,34 @@ const style = css(`
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      margin-bottom: var(--spacing-2xl);
+      margin-bottom: ${spacing.section};
 	}
 
 	.itemList {
 		display: flex;
 		flex-wrap: wrap;
 		list-style: none;
-		padding: var(--space-1);
-		gap: var(--space-1);
-		font-size: var(--font-size-md);
 		font-weight: 500;
-		background-color: var(--theme-surface);
-		border: 1px solid var(--theme-surface-border);
-		border-radius: 1000px;
 		width: fit-content;
+		padding: ${spacing[1]};
+		gap: ${spacing[1]};
+		font-size: ${fontSize.md};
+		background-color: ${theme.surface};
+		border: 1px solid ${theme.surfaceBorder};
+		border-radius: 1000px;
 	}
 	
 	.selected > .item {
-		background-color: var(--theme-primary);
-		color: var(--theme-background);
+		background-color: ${theme.accent};
+		color: ${theme.background};
 		font-weight: 600;
-		border-radius: 1000px;		
+		border-radius: 1000px;
 	}
 
 	.item {
-		color: var(--theme-foreground-alt);
-		padding: var(--space-pad-surface) var(--space-4);
-		line-height: 1rem;
+		color: ${theme.subtext};
+		padding: ${spacing[2]} ${spacing[4]};
+		line-height: 1;
 		display: block;
 	}
 `);

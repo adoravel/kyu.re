@@ -4,6 +4,8 @@
  */
 
 import { css, Import } from "~/mech/css.ts";
+import { boundaries, ease, elevation, fontSize, radius, spacing, theme } from "~/layout.tsx";
+import { ExternalLink, License } from "~/components/Icon.tsx";
 
 export interface Project {
 	author: string;
@@ -14,13 +16,11 @@ export interface Project {
 	url: string;
 }
 
-export const ProjectLanguage = {
-	TypeScript: { label: "TypeScript", colour: "#3178c6" },
-	C: { label: "C", colour: "#555" },
-	Scala: { label: "Scala", colour: "#c22d40" },
-} as const;
-
-export type ProjectLanguage = typeof ProjectLanguage[keyof typeof ProjectLanguage];
+export enum ProjectLanguage {
+	TypeScript = 0x3178c6,
+	C = 0x555,
+	Scala = 0xc22d40,
+}
 
 export interface ProjectsProps {
 	projects: Project[];
@@ -31,33 +31,34 @@ const projects = css(`
 		list-style: none;
 		padding-left: 0;
 		display: grid;
-		margin-top: var(--space-2);
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--space-2);
 
-		@media (max-width: 600px) {
+		@media (max-width: ${boundaries.mobileMaxWidth}) {
 			grid-template-columns: 1fr;
 		}
+
+		margin-top: ${spacing[2]};
+		gap: ${spacing[2]};
 	}
 
 	.project-card {
 		display: flex;
 		flex-direction: column;
 		text-decoration: none;
-		line-height: 1.75;
-		height: 100%;
-		color: var(--theme-foreground);
-		background-color: var(--theme-inner);
-		border: 1px solid var(--theme-inner-border);
-		padding: var(--space-3) var(--space-4);
-		border-radius: var(--radius-lg);
 		position: relative;
 		overflow: hidden;
+		height: 100%;
+		color: ${theme.text};
+		background-color: ${theme.base};
+		border: 1px solid ${theme.baseBorder};
+		padding: ${spacing[3]} ${spacing[4]};
+		border-radius: ${radius.lg};
+		line-height: ${boundaries.lineHeight + .25};
 	}
 
 	.project-card:hover {
-  		background-color: rgba(255, 255, 255, 0.025);
-  		border-color: rgba(255, 255, 255, 0.125);
+  		background-color: ${theme.surfaceHover};
+  		border-color: ${theme.surfaceBorderHover};
 		
 		&::before {
 			transform: scale(1.125);
@@ -78,22 +79,22 @@ const projects = css(`
 		text-align: center;
 		align-items: center;
 		justify-content: center;
-		transition: transform 0.1s var(--transition-fast);
-		-webkit-text-stroke: 2px var(--theme-inner-border);
+		transition: transform ${ease.fast};
+		-webkit-text-stroke: 2px ${theme.baseBorder};
 		opacity: 0.32;
 	}
 
 	.external-icon {
 		position: absolute;
-		color: var(--theme-foreground-alt);
-		top: var(--space-3);
-		right: var(--space-3);
+		color: ${theme.subtext};
+		top: ${spacing[3]};
+		right: ${spacing[3]};
 		opacity: 33%;
 	}
 
 	.license {
-		font-size: var(--font-size-sm);
-		color: var(--theme-foreground-alt);
+		font-size: ${fontSize.sm};
+		color: ${theme.subtext};
 		line-height: 1;
 		opacity: 0.5;
 	}
@@ -104,14 +105,14 @@ const projects = css(`
 	}
 
 	.author {
-		font-size: var(--font-size-md);
-		margin-bottom: var(--space-1)
+		font-size: ${fontSize.md};
+		margin-bottom: ${spacing[1]};
 	}
 
 	.description {
-		font-size: var(--font-size-sm);
-		color: var(--theme-foreground-alt);
-		margin-bottom: var(--space-3);
+		font-size: ${fontSize.sm};
+		color: ${theme.subtext};
+		margin-bottom: ${spacing[3]};
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
@@ -120,23 +121,23 @@ const projects = css(`
 
 	.description, .info, .author {
 		position: relative;
-		z-index: 1;
+		z-index: ${elevation.base};
 	}
 
 	.info {
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
-		font-size: var(--font-size-xs);
-		color: var(--theme-foreground-alt);
+		gap: ${spacing[2]};
+		font-size: ${fontSize.xs};
+		color: ${theme.subtext};
 		margin-top: auto;
 	}
 
 	.language {
 		width: 10px;
 		height: 10px;
-		border-radius: var(--radius-circle);
-		background-color: var(--lang-color, #ccc);
+		border-radius: ${radius.circle};
+		background-color: var(--lang-colour, #ccc);
 		display: inline-block;
 	}
 `);
@@ -151,50 +152,17 @@ export default function Projects(props: ProjectsProps) {
 				<li>
 					<a class="project-card" href={project.url} target="_blank" rel="noopener noreferrer">
 						<span class="external-icon" aria-label="Open externally">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<title>Open Externally</title>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
-								<path d="M11 13l9 -9"></path>
-								<path d="M15 4h5v5"></path>
-							</svg>
+							<ExternalLink size={18} />
 						</span>
 						<div class="author">
 							<strong>{project.author}</strong>/{project.name}
 						</div>
 						<p class="description">{project.description}</p>
 						<div class="info">
-							<span class="language" style={`--lang-color:${project.lang.colour};`}></span>
-							{project.lang.label}
+							<span class="language" style={"--lang-colour: #" + project.lang.toString(16)}></span>
+							{ProjectLanguage[project.lang]}
 							<div class="license" aria-label="License">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<title>License</title>
-									<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
-									<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
-									<path d="M7 21h10"></path>
-									<path d="M12 3v18"></path>
-									<path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
-								</svg>
+								<License size={12} />
 								<span>{project.license}</span>
 							</div>
 						</div>
