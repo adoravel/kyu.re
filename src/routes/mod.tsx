@@ -5,7 +5,7 @@
 
 import { css, Import } from "~/mech/css.ts";
 import { boundaries, fontSize, Layout, spacing, theme } from "~/layout.tsx";
-import { NavigationBar } from "~/components/NavigationBar.tsx";
+// import { NavigationBar } from "~/components/NavigationBar.tsx";
 import Heading from "~/components/Heading.tsx";
 import SectionTitle from "~/components/SectionTitle.tsx";
 import Projects from "~/components/Projects.tsx";
@@ -21,26 +21,15 @@ const home = css(`
 		position: relative;
 	}
 
-	/*
-	#heading h1 {
-		font-size: clamp(1.5rem, 5vw + 0.5rem, ${fontSize["2xl"]});
-		margin-bottom: ${spacing[1]};
-		line-height: 1.25;
-		display: block;
-	}
-
-	#heading h2 {
-		display: inline-block;
-		margin-top: 1ch;
-		width: fit-content;
-		color: ${theme.subtext};
-		font-size: ${fontSize.md};
-	}
-
 	#intro-text-container > p {
 		display: inline;
 	}
-	*/
+
+	#read-more-content {
+		margin-top: 2ch;
+		padding: 0 2ch;
+		border-left: 2px solid ${theme.lift};
+	}
 	
 	@media (min-width: ${boundaries.desktopMinWidth}) {
 		section, #heading {
@@ -124,7 +113,7 @@ const home = css(`
 		& ~ .read-more-label-collapse { display: none; }
 
 		&:checked {
-			& ~ #read-more-content { display: inline !important; }
+			& ~ #read-more-content { display: block !important; }
 			& ~ .read-more-label-expand { display: none; }
 			& ~ .read-more-label-collapse { display: inline-block; }
 		}
@@ -138,10 +127,6 @@ const home = css(`
         font-size: ${fontSize.body};
         color: ${theme.accent};
     }
-
-	.break {
-		height: 1em;
-	}
 
 	.buttons {
 		display: flex;
@@ -198,7 +183,6 @@ export default () => {
 					<label for="intro-toggle" class="read-more-btn link read-more-label-expand">Read more</label>
 					<label for="intro-toggle" class="read-more-btn link read-more-label-collapse">Show less</label>
 					<div id="read-more-content">
-						<div class="break" />
 						<p>
 							<i>In a more personal tone~</i>
 						</p>
